@@ -106,6 +106,15 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
+	
+	.state('menu.tabs.profile', {
+		url: '/profile',
+		views: {
+			'tab-static': {
+				templateUrl: "templates/users/profile.html"
+			}
+		}
+	})
 
 	.state('login', {
 		url: '/login',

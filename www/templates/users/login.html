@@ -16,12 +16,14 @@
 					<div class="form-errors" ng-show="loginForm.password.$error && loginForm.$submitted" ng-messages="loginForm.password.$error" ng-messages-include="templates/errors.html"></div>
 				</div>
 				<div class="text-right">
-					<a ui-sref="forgot">Forgot Password</a>
+					<a ui-sref="menu.tabs.home">Forgot Password</a>
 				</div>
-				<input type="submit" value="Sign In" class="button button-block button-positive" />
-				<input ng-click="fblogin()" type="button" value="Use Facebook Login" class="button button-block button-dark icon-left ion-social-facebook" />
+				<input ui-sref="menu.tabs.home" type="submit" value="Sign In" class="button button-block button-positive" />
+				<input ui-sref="menu.tabs.home" ngx-click="fblogin()" type="button" value="Use Facebook Login" class="button button-block button-dark icon-left ion-social-facebook" />
 			</form>
 		</div>
-		<a class="button button-full" ui-sref="menu.tabs.home">NEW</a>
+		<a class="button button-full signup" ui-sref="menu.tabs.home">Don't have an account?<br /><span>SIGN UP</span></a>
+		<p class="text-center">If you click "Use Facebook Login" and are not a GoAmarillo user,<br />you will be registered and you agree to the GoAmarillo<br />
+			<a ui-sref="login">Terms &amp; Conditions</a> and <a ui-sref="login">Privacy Policy</a></p>
 	</ion-content>
 </ion-view>

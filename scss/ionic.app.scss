@@ -44,6 +44,12 @@ textarea {
 	letter-spacing: 1px;
 	color: $grey;
 }
+p {
+	text-align: justify;
+}
+.padding {
+	padding: 20px;
+}
 .bar.bar-header {
 	background: $dark;
 	background-image: url(../img/black_bg.jpg);
@@ -58,6 +64,21 @@ textarea {
 	text-transform: uppercase;
 	background: $positive;
 	color: $white;
+	padding: 5px;
+	letter-spacing: 2px;
+	font-size: 14px;
+	span {
+		font-size: 18px;
+		vertical-align: text-bottom;
+	}
+}
+.scroll-content {
+	img {
+		width: 100%;
+	}
+	.button {
+		text-transform: uppercase;
+	}
 }
 .button-block {
 	@include border-radius(30px);
@@ -75,19 +96,55 @@ textarea {
 		text-transform: uppercase;
 	}
 }
-
 #login {
 	background-image: url(../img/login_bg.jpg);
 	background-size: cover;
 	color: $white;
+	.list-inset {
+		margin: 10px;
+	}
+	form {
+		text-transform: uppercase;
+		a {
+			color: $white;
+			text-decoration: none;
+			font-weight: 700;
+			font-size: 12px;
+		}
+	}
+	input.button {
+		font-size: 14px;
+		line-height: 38px;
+		height: 38px;
+		min-height: inherit;
+	}
 	.padding {
-		padding: 20px 50px 10px;
+		padding: 20px 50px 0px;
 	}
 	img {
 		width: 100%;
 	}
+	.signup {
+		line-height: 16px;
+		font-size: 14px;
+		letter-spacing: 2px;
+		padding-top: 8px;
+		span {
+			color: $green;
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 24px;
+		}
+	}
+	p {
+		font-size: 12px;
+		a {
+			color: $white;
+			text-decoration: none;
+			font-weight: 700;
+		}
+	}
 }
-
 #homepage {
 	.list {
 		height: 100%;
@@ -113,26 +170,32 @@ textarea {
 				font-weight: 300;
 			}
 		}
-//		.item:before, .item:after {
-//			position: absolute;
-//			width: 0;
-//			height: 0;
-//			content: " ";
-//			border: solid transparent;
-//			top: -1px;
-//			pointer-events: none;
-//		}
-//		.item:after {
-//			left: 50%;
-//			margin-left: -10px;
-//			border-width: 10px;
-//			border-top-color: $white;
-//		}
-//		.item:before {
-//			left: 50%;
-//			margin-left: -11px;
-//			border-width: 11px;
-//			border-top-color: $grey;
-//		}
+		//		.item:before, .item:after {
+		//			position: absolute;
+		//			width: 0;
+		//			height: 0;
+		//			content: " ";
+		//			border: solid transparent;
+		//			top: -1px;
+		//			pointer-events: none;
+		//		}
+		//		.item:after {
+		//			left: 50%;
+		//			margin-left: -10px;
+		//			border-width: 10px;
+		//			border-top-color: $white;
+		//		}
+		//		.item:before {
+		//			left: 50%;
+		//			margin-left: -11px;
+		//			border-width: 11px;
+		//			border-top-color: $grey;
+		//		}
+	}
+}
+#profile_form {
+	.input-label {
+		width: auto;
+		max-width: none;
 	}
 }

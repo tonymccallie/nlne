@@ -9840,7 +9840,7 @@ a.button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.goplan-pancaker-06:before {
+.goplan-pancaker:before {
   content: "\e900"; }
 
 .goplan-plan:before {
@@ -9916,6 +9916,12 @@ textarea {
   letter-spacing: 1px;
   color: #aaa; }
 
+p {
+  text-align: justify; }
+
+.padding {
+  padding: 20px; }
+
 .bar.bar-header {
   background: #666;
   background-image: url(../img/black_bg.jpg);
@@ -9929,7 +9935,19 @@ textarea {
   text-align: center;
   text-transform: uppercase;
   background: #52AF87;
-  color: #fff; }
+  color: #fff;
+  padding: 5px;
+  letter-spacing: 2px;
+  font-size: 14px; }
+  .subheader span {
+    font-size: 18px;
+    vertical-align: text-bottom; }
+
+.scroll-content img {
+  width: 100%; }
+
+.scroll-content .button {
+  text-transform: uppercase; }
 
 .button-block {
   -webkit-border-radius: 30px;
@@ -9950,10 +9968,40 @@ textarea {
   background-image: url(../img/login_bg.jpg);
   background-size: cover;
   color: #fff; }
+  #login .list-inset {
+    margin: 10px; }
+  #login form {
+    text-transform: uppercase; }
+    #login form a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 12px; }
+  #login input.button {
+    font-size: 14px;
+    line-height: 38px;
+    height: 38px;
+    min-height: inherit; }
   #login .padding {
-    padding: 20px 50px 10px; }
+    padding: 20px 50px 0px; }
   #login img {
     width: 100%; }
+  #login .signup {
+    line-height: 16px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding-top: 8px; }
+    #login .signup span {
+      color: #52AF87;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px; }
+  #login p {
+    font-size: 12px; }
+    #login p a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700; }
 
 #homepage .list {
   height: 100%; }
@@ -9978,3 +10026,7 @@ textarea {
       border-radius: 40px;
       margin-right: 15px;
       font-weight: 300; }
+
+#profile_form .input-label {
+  width: auto;
+  max-width: none; }
