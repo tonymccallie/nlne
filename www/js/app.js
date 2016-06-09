@@ -121,5 +121,5 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		templateUrl: "templates/users/login.html"
 	});
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/menu/tabs/home');
+	$urlRouterProvider.otherwise('/login');
 });
