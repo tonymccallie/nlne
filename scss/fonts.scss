@@ -1,0 +1,90 @@
+@font-face {
+	font-family: 'HelveticaNeue';
+	src: url('../fonts/HelveticaNeue.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'HelveticaNeueOblique';
+	src: url('../fonts/HelveticaNeueOblique.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'GoPlan';
+	src: url('../fonts/goplan.ttf') format('truetype');
+}
+
+[class^="goplan-"], [class*=" goplan-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'GoPlan' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.goplan-pancaker-06:before {
+    content: "\e900";
+}
+.goplan-plan:before {
+    content: "\e901";
+}
+.goplan-explore:before {
+    content: "\e902";
+}
+.goplan-dates:before {
+    content: "\e903";
+}
+.goplan-quizzes:before {
+    content: "\e904";
+}
+.goplan-home:before {
+    content: "\e905";
+}
+.goplan-pushpin:before {
+    content: "\e946";
+}
+.goplan-location:before {
+    content: "\e947";
+}
+.goplan-location2:before {
+    content: "\e948";
+}
+.goplan-compass:before {
+    content: "\e949";
+}
+.goplan-compass2:before {
+    content: "\e94a";
+}
+.goplan-display:before {
+    content: "\e956";
+}
+.goplan-laptop:before {
+    content: "\e957";
+}
+.goplan-mobile:before {
+    content: "\e958";
+}
+.goplan-mobile2:before {
+    content: "\e959";
+}
+.goplan-tablet:before {
+    content: "\e95a";
+}
+.goplan-spinner:before {
+    content: "\e97a";
+}
+.goplan-spinner3:before {
+    content: "\e97c";
+}
+.goplan-spinner6:before {
+    content: "\e97f";
+}
+.goplan-switch:before {
+    content: "\e9b6";
+}

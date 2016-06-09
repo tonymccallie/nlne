@@ -1,0 +1,138 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+$green: #52AF87;
+$white: #fff;
+$positive: $green !default;
+$dark: #666 !default;
+$calm: #333 !default;
+$grey: #aaa !default;
+$font-default: "HelveticaNeue";
+$font-italic: "HelveticaNeueOblique";
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+@import "scss/fonts.scss";
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+button,
+select,
+textarea {
+	font-family: $font-default;
+	font-weight: 400;
+	letter-spacing: 1px;
+	color: $grey;
+}
+.bar.bar-header {
+	background: $dark;
+	background-image: url(../img/black_bg.jpg);
+	background-size: cover;
+}
+.title-image {
+	margin-top: 7px;
+	height: 30px;
+}
+.subheader {
+	text-align: center;
+	text-transform: uppercase;
+	background: $positive;
+	color: $white;
+}
+.button-block {
+	@include border-radius(30px);
+}
+.tabs.tab-nav {
+	background: $positive;
+	background-image: url(../img/green_bg.jpg);
+	background-size: cover;
+	padding: 5px 0;
+	height: 59px;
+	line-height: 59px;
+}
+.tab-nav {
+	.tab-item {
+		text-transform: uppercase;
+	}
+}
+
+#login {
+	background-image: url(../img/login_bg.jpg);
+	background-size: cover;
+	color: $white;
+	.padding {
+		padding: 20px 50px 10px;
+	}
+	img {
+		width: 100%;
+	}
+}
+
+#homepage {
+	.list {
+		height: 100%;
+		.item {
+			height: 25%;
+			vertical-align: middle;
+			text-transform: uppercase;
+			font-size: 20px;
+			line-height: 24px;
+			padding-top: 30px;
+			span {
+				margin-top: -15px;
+				float: left;
+				vertical-align: middle;
+				display: block;
+				line-height: 80px;
+				font-size: 40px;
+				border: solid 1px $grey;
+				width: 80px;
+				text-align: center;
+				@include border-radius(40px);
+				margin-right: 15px;
+				font-weight: 300;
+			}
+		}
+//		.item:before, .item:after {
+//			position: absolute;
+//			width: 0;
+//			height: 0;
+//			content: " ";
+//			border: solid transparent;
+//			top: -1px;
+//			pointer-events: none;
+//		}
+//		.item:after {
+//			left: 50%;
+//			margin-left: -10px;
+//			border-width: 10px;
+//			border-top-color: $white;
+//		}
+//		.item:before {
+//			left: 50%;
+//			margin-left: -11px;
+//			border-width: 11px;
+//			border-top-color: $grey;
+//		}
+	}
+}

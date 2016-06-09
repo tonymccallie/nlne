@@ -1,0 +1,25 @@
+<ion-view view-title="Home">
+	<ion-nav-title>
+		<img src="img/logo.png" class="title-image" />
+	</ion-nav-title>
+	<ion-content id="homepage">
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh="refresh()"></ion-refresher>
+		<div class="subheader"><span class="goplan-home"></span> Home</div>
+		<div>
+			<div class="list">
+				<a class="item" ui-sref="menu.tabs.profile">
+					<span>1</span> Setup your<br />student profile
+				</a>
+				<a class="item" ui-sref="menu.tabs.profile">
+					<span>2</span> Plan your<br />college future
+				</a>
+				<a class="item" ui-sref="menu.tabs.profile">
+					<span>3</span> Explore your<br />future career
+				</a>
+				<a class="item" ui-sref="menu.tabs.profile">
+					<span>4</span> Plan steps<br />to take
+				</a>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

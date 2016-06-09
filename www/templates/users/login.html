@@ -1,0 +1,27 @@
+<ion-view id="login">
+	<ion-content>
+		<div class="padding">
+			<img src="img/login_logo.png" />
+			<form>
+				<div class="list list-inset">
+					<div class="item item-input">
+						<input name="email" ng-model="loginUser.email" type="email" placeholder="EMAIL" required />
+					</div>
+					<div class="form-errors" ng-show="loginForm.email.$error && loginForm.$submitted" ng-messages="loginForm.email.$error" ng-messages-include="templates/errors.html"></div>
+				</div>
+				<div class="list list-inset">
+					<div class="item item-input">
+						<input name="password" ng-model="loginUser.password" type="password" placeholder="PASSWORD" required />
+					</div>
+					<div class="form-errors" ng-show="loginForm.password.$error && loginForm.$submitted" ng-messages="loginForm.password.$error" ng-messages-include="templates/errors.html"></div>
+				</div>
+				<div class="text-right">
+					<a ui-sref="forgot">Forgot Password</a>
+				</div>
+				<input type="submit" value="Sign In" class="button button-block button-positive" />
+				<input ng-click="fblogin()" type="button" value="Use Facebook Login" class="button button-block button-dark icon-left ion-social-facebook" />
+			</form>
+		</div>
+		<a class="button button-full" ui-sref="menu.tabs.home">NEW</a>
+	</ion-content>
+</ion-view>

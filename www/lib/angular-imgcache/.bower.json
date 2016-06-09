@@ -1,0 +1,38 @@
+{
+  "name": "angular-imgcache",
+  "main": "angular-imgcache.js",
+  "version": "1.0.1",
+  "homepage": "https://github.com/maistho/angular-imgcache",
+  "authors": [
+    "maistho <maistho@gmail.com>",
+    "Benes <benes@kodarna.cz>"
+  ],
+  "description": "Simple imgcache.js wrapper for AngularJS",
+  "keywords": [
+    "AngularJS",
+    "imgcache.js",
+    "JavaScript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.2.*",
+    "imgcache.js": "*"
+  },
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.1",
+    "commit": "ea1628b6a1381e85d075524e0bdc776416d3cf6a"
+  },
+  "_source": "https://github.com/Maistho/angular-imgcache.js.git",
+  "_target": "^1.0.1",
+  "_originalSource": "angular-imgcache.js",
+  "_direct": true
+}
