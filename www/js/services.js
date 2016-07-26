@@ -1,5 +1,43 @@
 angular.module('greyback.services', [])
 
+.service('UserService', function ($q, $http, $location, $ionicSlideBoxDelegate, $localStorage, $state, $data) {
+	console.warn('UserService');
+
+	var self = this;
+	var config = {
+		latest: {
+			name: 'UserService.user',
+			url: '/ajax/plugin/news/news_articles/json/limit:4/category:3',
+			variable: 'banners'
+		}
+	};
+
+	self.user = null;
+
+
+
+	self.populate = function () {
+		console.log('NewsService.populate');
+		return $data.populate(config.latest, self);
+	}
+
+	self.latest = function () {
+		console.log('NewsService.latest');
+		return $data.get(config.latest, self);
+	}
+
+	self.article = function (articleIndex) {
+		console.log(['NewsService.get', articleIndex]);
+		if (self.banners.length) {
+			return self.banners[articleIndex];
+		} else {
+			$location.path('#/menu/tabs/home');
+			$location.replace();
+			return null;
+		}
+	}
+})
+
 .service('PtrService', function ($timeout, $ionicScrollDelegate) {
 	console.warn('PtrService');
 	/**

@@ -11,9 +11,15 @@ if (devtest) {
 	isMobile = false;
 }
 
-angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache'])
+angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages'])
 
-.run(function ($ionicPlatform, ImgCache) {
+.run(function ($ionicPlatform, ImgCache, ngFB) {
+	console.log('.run');
+	ngFB.init({
+		appId: '512626388922766',
+		oauthRedirectURL: DOMAIN + '/users/oauthlogin',
+		logoutRedirectURL: DOMAIN + '/users/oauthlogout',
+	});
 	$ionicPlatform.ready(function () {
 		console.log('$ionicPlatform.ready');
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -118,7 +124,19 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 
 	.state('login', {
 		url: '/login',
-		templateUrl: "templates/users/login.html"
+		templateUrl: "templates/users/login.html",
+		controller: "UserController"
+	})
+	
+	.state('signup', {
+		url: '/signup',
+		templateUrl: "templates/users/signup.html",
+		controller: "UserController"
+	})
+	
+	.state('forgot', {
+		url: '/forgot',
+		templateUrl: "templates/users/forgot.html"
 	});
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/login');
