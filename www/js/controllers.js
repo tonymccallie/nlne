@@ -18,7 +18,7 @@ angular.module('greyback.controllers', [])
 
 })
 
-.controller('UserController', function ($scope, UserService, $ionicLoading) {
+.controller('UserController', function ($scope, $q, UserService, $ionicLoading) {
 	console.log('UserController');
 
 	$scope.signupUser = {};
