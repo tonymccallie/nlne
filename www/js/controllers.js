@@ -18,7 +18,7 @@ angular.module('greyback.controllers', [])
 
 })
 
-.controller('UserController', function ($scope, UserService) {
+.controller('UserController', function ($scope, UserService, $ionicLoading) {
 	console.log('UserController');
 
 	$scope.signupUser = {};
@@ -34,7 +34,59 @@ angular.module('greyback.controllers', [])
 		}
 	}
 
+	var fbLoginSuccess = function (response) {
+		console.log('SignupController.fbLoginSuccess');
+		if (!response.authResponse) {
+			fbLoginError("Cannot find the authResponse");
+			return;
+		}
+
+		var authResponse = response.authResponse;
+
+		getFacebookProfileInfo(authResponse)
+			.then(function (profileInfo) {
+				// For the purpose of this example I will store user data on local storage
+				UserService.setUser({
+					authResponse: authResponse,
+					userID: profileInfo.id,
+					name: profileInfo.name,
+					email: profileInfo.email,
+					picture: "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
+				});
+				$ionicLoading.hide();
+				$state.go('app.home');
+			}, function (fail) {
+				// Fail get profile info
+				console.log('profile info fail', fail);
+			});
+	};
+
+	// This is the fail callback from the login method
+	var fbLoginError = function (error) {
+		console.log('fbLoginError', error);
+		$ionicLoading.hide();
+	};
+
+	// This method is to get the user profile info from the facebook api
+	var getFacebookProfileInfo = function (authResponse) {
+		console.log('SignupController.getFacebookProfileInfo');
+		var info = $q.defer();
+
+		facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
+			function (response) {
+				console.log(response);
+				info.resolve(response);
+			},
+			function (response) {
+				console.log(response);
+				info.reject(response);
+			}
+		);
+		return info.promise;
+	};
+
 	$scope.fblogin = function () {
+		console.log('SignupController.fblogin');
 		facebookConnectPlugin.getLoginStatus(function (success) {
 			if (success.status === 'connected') {
 				// The user is logged in and has authenticated your app, and response.authResponse supplies
