@@ -5,6 +5,7 @@ angular.module('greyback.utils', [])
 	var self = this;
 
 	self.alert = function (msg) {
+		console.log('$util.alert');
 		return $ionicPopup.alert({
 			title: null,
 			template: msg,
@@ -12,9 +13,20 @@ angular.module('greyback.utils', [])
 			okType: 'button-positive'
 		});
 	}
+	
+	self.confirm = function(msg, btns) {
+		console.log('$util.confirm');
+		return $ionicPopup.confirm({
+			title: null,
+			template: msg,
+			okText: 'Continue',
+			okType: 'button-positive',
+			cancelText: 'Cancel'
+		});
+	}
 })
 
-.service('$data', function ($q, $http, $location, $ionicSlideBoxDelegate, $localStorage, $state, $util) {
+.service('$data', function ($q, $http, $location, $ionicSlideBoxDelegate, $localStorage, $ionicLoading, $state, $util) {
 	console.warn('$data');
 	var self = this;
 
@@ -59,7 +71,6 @@ angular.module('greyback.utils', [])
 
 		return deferred.promise;
 	}
-
 	
 	// $http.get wrapper
 	self.get = function ($config, obj) {
@@ -102,6 +113,7 @@ angular.module('greyback.utils', [])
 	self.remote = function ($name, $url, data) {
 		console.log('$data.remote(' + $name + ')');
 		console.log([$url, data]);
+		$ionicLoading.show();
 
 		var deferred = $q.defer();
 		var method = 'GET';
@@ -117,7 +129,8 @@ angular.module('greyback.utils', [])
 			})
 			.success(function (result) {
 				console.log('$data.remote(' + $name + ').success');
-
+				$ionicLoading.hide();
+				
 				switch (result.status) {
 					case "SUCCESS":
 						//store local copy for populate
@@ -132,6 +145,8 @@ angular.module('greyback.utils', [])
 			})
 			.error(function (result) {
 				console.log(['error', result]);
+				$util.alert('There was an error processing your request. Please try again later.');
+				$ionicLoading.hide();
 			});
 
 

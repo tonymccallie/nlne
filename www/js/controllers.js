@@ -22,13 +22,15 @@ angular.module('greyback.controllers', [])
 
 })
 
-.controller('UserController', function ($scope, $state, $q, UserService, $ionicLoading, $ionicPopup, $util) {
+.controller('UserController', function ($scope, $state, $q, $ionicLoading, $ionicPopup, $util, UserService, FacebookService) {
 	console.log('UserController');
 
 	$scope.signupUser = {};
 
+	$scope.loginUser = {};
+
 	$scope.signup = function (form) {
-		console.log('SignupController.signup');
+		console.log('UserController.signup');
 		if (form.$valid) {
 			UserService.create($scope.signupUser).then(function (data) {
 				$util.alert('You have successfully created an account! Please click Continue to login.').then(function () {
@@ -41,8 +43,26 @@ angular.module('greyback.controllers', [])
 		}
 	}
 
+	$scope.login = function (form) {
+		console.log('UserController.login');
+		if (form.$valid) {
+			UserService.login($scope.loginUser).then(function (data) {
+				$scope.loginUser = {};
+				$state.go('login');
+			});
+		} else {
+			$util.alert('There was a problem with the information you entered. Please verify that you have all the needed information and try again.');
+		}
+	}
+	
+	$scope.fblogin = function () {
+		console.log('UserController.fblogin');
+		
+		FacebookService.login();
+	}
+
 	var fbLoginSuccess = function (response) {
-		console.log('SignupController.fbLoginSuccess');
+		console.log('UserController.fbLoginSuccess');
 		if (!response.authResponse) {
 			fbLoginError("Cannot find the authResponse");
 			return;
@@ -76,7 +96,7 @@ angular.module('greyback.controllers', [])
 
 	// This method is to get the user profile info from the facebook api
 	var getFacebookProfileInfo = function (authResponse) {
-		console.log('SignupController.getFacebookProfileInfo');
+		console.log('UserController.getFacebookProfileInfo');
 		var info = $q.defer();
 
 		facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
@@ -92,8 +112,8 @@ angular.module('greyback.controllers', [])
 		return info.promise;
 	};
 
-	$scope.fblogin = function () {
-		console.log('SignupController.fblogin');
+	$scope.fbloginGOOD = function () {
+		console.log('UserController.fblogin');
 		facebookConnectPlugin.getLoginStatus(function (success) {
 			if (success.status === 'connected') {
 				// The user is logged in and has authenticated your app, and response.authResponse supplies

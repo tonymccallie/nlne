@@ -5,14 +5,14 @@
 			<form name="loginForm" novalidate="" ng-submit="login(loginForm)">
 				<div class="list list-inset">
 					<div class="item item-input" ng-class="{ 'has-errors' : loginForm.email.$invalid && loginForm.$submitted, 'no-errors' : loginForm.email.$valid  && loginForm.$submitted}">
-						<input name="email" ng-model="signupUser.email" type="text" placeholder="EMAIL" required />
+						<input name="email" ng-model="loginUser.email" type="text" placeholder="EMAIL" required />
 					</div>
 					<div class="form-errors" ng-show="loginForm.email.$error && loginForm.$submitted" ng-messages="loginForm.email.$error">
 						<div ng-messages-include="templates/system/error.html"></div>
 					</div>
 				</div>
 				<div class="list list-inset">
-					<div class="item item-input">
+					<div class="item item-input" ng-class="{ 'has-errors' : loginForm.password.$invalid && loginForm.$submitted, 'no-errors' : loginForm.password.$valid  && loginForm.$submitted}">
 						<input name="password" ng-model="loginUser.password" type="password" placeholder="PASSWORD" required />
 					</div>
 					<div class="form-errors" ng-show="loginForm.password.$error && loginForm.$submitted" ng-messages="loginForm.password.$error">
