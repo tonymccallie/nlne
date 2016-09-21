@@ -1,19 +1,42 @@
 angular.module('greyback.utils', [])
 
-.service('$data', function ($q, $http, $location, $ionicSlideBoxDelegate, $localStorage, $state) {
+.service('$util', function ($ionicPopup) {
+	console.warn('$util');
+	var self = this;
+
+	self.alert = function (msg) {
+		return $ionicPopup.alert({
+			title: null,
+			template: msg,
+			okText: 'Continue',
+			okType: 'button-positive'
+		});
+	}
+})
+
+.service('$data', function ($q, $http, $location, $ionicSlideBoxDelegate, $localStorage, $state, $util) {
 	console.warn('$data');
 	var self = this;
 
+	//initialize values
 	self.values = {};
 
+	//	This function populates data from a service IF EMPTY
+	//	e.g. (latest news)
 	self.populate = function ($config, obj) {
 		console.log(['$data.populate:' + $config.name, $config]);
+
 		var deferred = $q.defer();
+		
+		//initialize array value if non-existent
 		if (typeof self.values[$config.name] == 'undefined') {
 			self.values[$config.name] = [];
 		}
+		
 		if (self.values[$config.name].length === 0) {
 			console.log($config.name + ': no records');
+			
+			//check for a local version
 			self.local($config.name).then(function (localRecords) {
 				if (localRecords.length > 0) {
 					console.log($config.name + ': use local');
@@ -37,10 +60,12 @@ angular.module('greyback.utils', [])
 		return deferred.promise;
 	}
 
+	
+	// $http.get wrapper
 	self.get = function ($config, obj) {
 		console.log(['$data.get:' + $config.name, $config]);
 		var deferred = $q.defer();
-		self.remote($config.name, $config.url).then(function (remoteRecords) {
+		self.remote($config.name, $config.url, null).then(function (remoteRecords) {
 			console.log($config.name + ': got remote');
 			self.values[$config.name] = remoteRecords;
 			obj[$config.variable] = self.values[$config.name];
@@ -50,6 +75,21 @@ angular.module('greyback.utils', [])
 		return deferred.promise;
 	}
 
+	// $http.post wrapper
+	self.post = function ($config, obj, data) {
+		console.log(['$data.post:' + $config.name, $config]);
+		var deferred = $q.defer();
+		self.remote($config.name, $config.url, data).then(function (remoteRecords) {
+			console.log($config.name + ': got remote');
+			self.values[$config.name] = remoteRecords;
+			obj[$config.variable] = self.values[$config.name];
+			deferred.resolve(remoteRecords);
+		});
+
+		return deferred.promise;
+	}
+
+	// get localStorage info
 	self.local = function ($name) {
 		console.log('$data.local(' + $name + ')');
 		var deferred = $q.defer();
@@ -58,23 +98,35 @@ angular.module('greyback.utils', [])
 		return deferred.promise;
 	}
 
-	self.remote = function ($name, $url) {
+	// ajax calls
+	self.remote = function ($name, $url, data) {
 		console.log('$data.remote(' + $name + ')');
+		console.log([$url, data]);
 
-		var data = [];
 		var deferred = $q.defer();
+		var method = 'GET';
 
-		var promise = $http.get(DOMAIN + $url)
+		if (data) {
+			method = 'POST';
+		}
+
+		var promise = $http({
+				url: DOMAIN + $url,
+				method: method,
+				data: data
+			})
 			.success(function (result) {
 				console.log('$data.remote(' + $name + ').success');
 
 				switch (result.status) {
 					case "SUCCESS":
+						//store local copy for populate
 						$localStorage.setArray($name, result.data);
 						deferred.resolve(result.data);
 						break;
 					default:
-						alert('Error on ' + $name + ': see log')
+						$util.alert('Error on ' + $name + ': see log');
+						console.log(result);
 						break;
 				}
 			})

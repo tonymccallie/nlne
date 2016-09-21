@@ -1,13 +1,13 @@
-var DOMAIN = 'http://www.gracepointcoppell.org'
+var DOMAIN = 'http://goamaapp.server1.greyback.net/'
 	//DEVELOPMENT
 var devtest = /localhost/.test(window.location.hostname);
 if (devtest) {
-	DOMAIN = 'http://localhost/greyback_shiny';
+	DOMAIN = 'http://localhost/nlne_server/';
 	isMobile = false;
 }
 devtest = /threeleaf/.test(window.location.hostname);
 if (devtest) {
-	DOMAIN = 'http://office.threeleaf.net:8080/greyback_shiny';
+	DOMAIN = 'http://office.threeleaf.net:8080/nlne_server/';
 	isMobile = false;
 }
 

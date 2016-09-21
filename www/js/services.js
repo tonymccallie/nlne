@@ -9,12 +9,63 @@ angular.module('greyback.services', [])
 			name: 'UserService.user',
 			url: '/ajax/plugin/news/news_articles/json/limit:4/category:3',
 			variable: 'banners'
+		},
+		create: {
+			name: 'UserService.create',
+			url: '/ajax/users/register',
+			variable: 'user'
 		}
 	};
 
 	self.user = null;
 
+	self.create = function (userform) {
+		console.log('UserService.create');
+		return $data.post(config.create, self, userform);
+	}
 
+	self.createUser = function (user) {
+		console.log('UserService.createUser');
+		var promise = $http.post(DOMAIN + '/ajax/users/register', user)
+			.success(function (response, status, headers, config) {
+				switch (response.status) {
+					case 'SUCCESS':
+						self.updateUser(response.data).then(function () {
+							$state.go('menu.tabs.home');
+						});
+						break;
+					case 'MESSAGE':
+						alert(response.data);
+						$state.go('login');
+						break;
+					default:
+						alert('there was a server error for creating the user');
+						console.log(response);
+						break;
+				}
+			})
+			.error(function (response, status, headers, config) {
+				console.log(['error', status, headers, config]);
+			});
+		return promise;
+	}
+
+	self.updateUser = function (user) {
+		console.log('UserService.updateUser');
+		var deferred = $q.defer();
+		self.user = user;
+		$localStorage.setObject('NewMarriageUser', self.user);
+		deferred.resolve(self.user);
+		return deferred.promise;
+	}
+
+	self.setUser = function (user_data) {
+		window.localStorage.starter_facebook_user = JSON.stringify(user_data);
+	}
+
+	self.getUser = function (user_data) {
+		return JSON.parse(window.localStorage.starter_facebook_user || '{}');
+	}
 
 	self.populate = function () {
 		console.log('NewsService.populate');
@@ -24,6 +75,34 @@ angular.module('greyback.services', [])
 	self.latest = function () {
 		console.log('NewsService.latest');
 		return $data.get(config.latest, self);
+	}
+
+	self.recoverUser = function (user) {
+		console.log(['UserService.recoverUser'], user);
+		var promise = $http.post(DOMAIN + '/ajax/users/recover', user)
+			.success(function (response, status, headers, config) {
+				switch (response.status) {
+					case 'SUCCESS':
+						alert('An email has been sent to this address with password reset instructions.');
+						$state.go('login');
+						break;
+					case 'MESSAGE':
+						alert(response.data);
+						$state.go('login');
+						break;
+					case 'ERROR':
+						alert(response.data);
+						break;
+					default:
+						alert('there was a server error for Messages');
+						console.log(response);
+						break;
+				}
+			})
+			.error(function (response, status, headers, config) {
+				console.log(['error', status, headers, config]);
+			});
+		return promise;
 	}
 
 	self.article = function (articleIndex) {

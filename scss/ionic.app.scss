@@ -96,10 +96,12 @@ p {
 		text-transform: uppercase;
 	}
 }
+
 #login {
 	background-image: url(../img/login_bg.jpg);
 	background-size: cover;
-	color: $white;
+	// color: $white; 
+	
 	.list-inset {
 		margin: 10px;
 	}
@@ -145,6 +147,11 @@ p {
 		}
 	}
 }
+
+#signup {
+	background-image: url(../img/login_bg.jpg);
+}
+
 #homepage {
 	.list {
 		height: 100%;

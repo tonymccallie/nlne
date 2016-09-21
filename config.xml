@@ -16,11 +16,9 @@
 		<preference name="BackupWebStorage" value="none" />
 		<preference name="SplashScreen" value="screen" />
 		<preference name="SplashScreenDelay" value="3000" />
-		<plugin name="org.apache.cordova.battery-status" />
 		<plugin name="org.apache.cordova.camera" />
 		<plugin name="org.apache.cordova.media-capture" />
 		<plugin name="org.apache.cordova.console" />
-		<plugin name="org.apache.cordova.contacts" />
 		<plugin name="org.apache.cordova.device" />
 		<plugin name="org.apache.cordova.device-motion" />
 		<plugin name="org.apache.cordova.device-orientation" />
@@ -28,7 +26,6 @@
 		<plugin name="org.apache.cordova.file" />
 		<plugin name="org.apache.cordova.file-transfer" />
 		<plugin name="org.apache.cordova.geolocation" />
-		<plugin name="org.apache.cordova.globalization" />
 		<plugin name="org.apache.cordova.inappbrowser" />
 		<plugin name="org.apache.cordova.media" />
 		<plugin name="org.apache.cordova.network-information" />

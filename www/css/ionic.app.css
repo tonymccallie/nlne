@@ -9966,8 +9966,7 @@ p {
 
 #login {
   background-image: url(../img/login_bg.jpg);
-  background-size: cover;
-  color: #fff; }
+  background-size: cover; }
   #login .list-inset {
     margin: 10px; }
   #login form {
@@ -10002,6 +10001,9 @@ p {
       color: #fff;
       text-decoration: none;
       font-weight: 700; }
+
+#signup {
+  background-image: url(../img/login_bg.jpg); }
 
 #homepage .list {
   height: 100%; }

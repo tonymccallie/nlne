@@ -16,9 +16,13 @@ angular.module('greyback.controllers', [])
 		return $sce.trustAsHtml(snippet);
 	};
 
+	$scope.alert = function (msg) {
+		alert(msg);
+	}
+
 })
 
-.controller('UserController', function ($scope, $q, UserService, $ionicLoading) {
+.controller('UserController', function ($scope, $state, $q, UserService, $ionicLoading, $ionicPopup, $util) {
 	console.log('UserController');
 
 	$scope.signupUser = {};
@@ -26,11 +30,14 @@ angular.module('greyback.controllers', [])
 	$scope.signup = function (form) {
 		console.log('SignupController.signup');
 		if (form.$valid) {
-			UserService.createUser($scope.signupUser).then(function (data) {
-				$scope.signupUser = {};
+			UserService.create($scope.signupUser).then(function (data) {
+				$util.alert('You have successfully created an account! Please click Continue to login.').then(function () {
+					$scope.signupUser = {};
+					$state.go('login');
+				});
 			});
 		} else {
-			console.log('TEST');
+			$util.alert('There was a problem with the information you entered. Please verify that you have all the needed information and try again.');
 		}
 	}
 
