@@ -114,11 +114,19 @@ angular.module('greyback.services', [])
 .service('FacebookService', function ($ionicLoading, UserService) {
 	console.warn('FacebookService');
 	var self = this;
+
+	self.logout = function() {
+		facebookConnectPlugin.logout(function(success) {
+			console.log(['logout success',success]);
+		}, function(error) {
+			console.log(['logout error',error]);
+		});
+	}
 	
-	self.login = function() {
+	self.login = function () {
 		console.log('FacebookService.login');
 		facebookConnectPlugin.getLoginStatus(function (success) {
-			console.log(['success',success]);
+			console.log(['success', success]);
 			if (success.status === 'connected') {
 				// The user is logged in and has authenticated your app, and response.authResponse supplies
 				// the user's ID, a valid access token, a signed request, and the time the access token
@@ -127,20 +135,20 @@ angular.module('greyback.services', [])
 
 				// Check if we have our user saved
 				//USE LOCALSTORAGE or the like
-				var user = UserService.getUser('facebook');
+				var user = {}; //UserService.getUser('facebook');
 
 				if (!user.userID) {
 					getFacebookProfileInfo(success.authResponse)
 						.then(function (profileInfo) {
-							console.log(['profileInfo',profileInfo]);
+							console.log(['profileInfo', profileInfo]);
 							// For the purpose of this example I will store user data on local storage
-//							UserService.setUser({
-//								authResponse: success.authResponse,
-//								userID: profileInfo.id,
-//								name: profileInfo.name,
-//								email: profileInfo.email,
-//								picture: "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
-//							});
+							//							UserService.setUser({
+							//								authResponse: success.authResponse,
+							//								userID: profileInfo.id,
+							//								name: profileInfo.name,
+							//								email: profileInfo.email,
+							//								picture: "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
+							//							});
 
 							$state.go('app.home');
 						}, function (fail) {
@@ -164,14 +172,65 @@ angular.module('greyback.services', [])
 
 				// Ask the permissions you need. You can learn more about
 				// FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
-				facebookConnectPlugin.login(['email', 'public_profile'], function(success) {
-					console.warn(['connect success',success]);
-				}, function(error) {
-					console.warn(['connect error',error]);
+				facebookConnectPlugin.login(['email', 'public_profile'], function (success) {
+					console.warn(['connect success', success]);
+				}, function (error) {
+					console.warn(['connect error', error]);
 				});
 			}
-			});
+		});
 	}
+
+	var fbLoginSuccess = function (response) {
+		console.log('FacebookService.fbLoginSuccess');
+		if (!response.authResponse) {
+			fbLoginError("Cannot find the authResponse");
+			return;
+		}
+
+		var authResponse = response.authResponse;
+
+		getFacebookProfileInfo(authResponse)
+			.then(function (profileInfo) {
+				// For the purpose of this example I will store user data on local storage
+				UserService.setUser({
+					authResponse: authResponse,
+					userID: profileInfo.id,
+					name: profileInfo.name,
+					email: profileInfo.email,
+					picture: "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
+				});
+				$ionicLoading.hide();
+				$state.go('app.home');
+			}, function (fail) {
+				// Fail get profile info
+				console.log('profile info fail', fail);
+			});
+	};
+
+	// This is the fail callback from the login method
+	var fbLoginError = function (error) {
+		console.log('FacebookService.fbLoginError', error);
+		$ionicLoading.hide();
+	};
+
+	// This method is to get the user profile info from the facebook api
+	var getFacebookProfileInfo = function (authResponse) {
+		console.log('FacebookService.getFacebookProfileInfo');
+		var info = $q.defer();
+
+		facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
+			function (response) {
+				console.log(response);
+				info.resolve(response);
+			},
+			function (response) {
+				console.log(response);
+				info.reject(response);
+			}
+		);
+		return info.promise;
+	};
 })
 
 .service('PtrService', function ($timeout, $ionicScrollDelegate) {
