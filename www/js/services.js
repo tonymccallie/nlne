@@ -114,16 +114,23 @@ angular.module('greyback.services', [])
 	}
 })
 
-.service('FacebookService', function ($ionicLoading, $localStorage, UserService) {
+.service('FacebookService', function ($q, $ionicLoading, $localStorage, UserService) {
 	console.warn('FacebookService');
 	var self = this;
 	
 	if(typeof facebookConnectPlugin == 'undefined') {
 		facebookConnectPlugin = {
 			login: function(options, success, error) {
-				success({});
+				success({
+					authResponse: {
+						accessToken: '123456'
+					}
+				});
 			},
 			logout: function(success, error) {
+				success({});
+			},
+			api: function(auth, rando, success, error) {
 				success({});
 			}
 		}
@@ -149,6 +156,14 @@ angular.module('greyback.services', [])
 		// FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
 		facebookConnectPlugin.login(['email', 'public_profile'], function (success) {
 			console.warn(['FB connect success', success]);
+			getFacebookProfileInfo(success.authResponse).then(function (profileInfo) {
+				console.log(['profileInfo', profileInfo]);
+				
+				//TODO create user here
+			}, function (fail) {
+				// Fail get profile info
+				console.log('profile info fail', fail);
+			});
 			$ionicLoading.hide();
 		}, function (error) {
 			console.warn(['FB connect error', error]);
