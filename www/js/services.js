@@ -5,56 +5,100 @@ angular.module('greyback.services', [])
 
 	var self = this;
 	var config = {
-		latest: {
-			name: 'UserService.user',
-			url: '/ajax/plugin/news/news_articles/json/limit:4/category:3',
-			variable: 'banners'
+		login: {
+			name: 'UserService.login',
+			url: '/ajax/users/login',
+			variable: 'user'
 		},
 		create: {
 			name: 'UserService.create',
 			url: '/ajax/users/register',
 			variable: 'user'
+		},
+		recover: {
+			name: 'UserService.recover',
+			url: '/ajax/users/recover',
+			variable: 'user'
 		}
 	};
 
 	self.user = null;
+	
+	self.init = function () {
+		console.log('UserService.init');
+		var deferred = $q.defer();
+		self.local().then(function (storedUser) {
+			if (typeof storedUser.User === 'undefined') {
+				console.log('UserService.init: need to login');
+				//HIDE FOR DEV
+				$state.go('login');
+				deferred.resolve(self.user);
+			} else {
+				console.log('UserService.init: use local');
+				self.user = storedUser;
+				deferred.resolve(self.user);
+			}
+		});
+
+		//		$location.path('/tab/home');
+		//		$location.replace();
+
+		return deferred.promise;
+	}
+	
+	self.local = function ($category) {
+		console.log('UserService.local');
+		var deferred = $q.defer();
+		var localUser = $localStorage.getObject('GoAmaUser');
+		deferred.resolve(localUser);
+		return deferred.promise;
+	}
+	
+	self.check = function () {
+		console.log('UserService.check');
+		var deferred = $q.defer();
+		if (!self.user) {
+			console.log('UserService.checkUser: no user');
+			self.init().then(function (initUser) {
+				deferred.resolve(self.user);
+			});
+		} else {
+			console.log('UserService.checkUser: had user');
+			deferred.resolve(self.user);
+		}
+		return deferred.promise;
+	}
+	
+	self.login = function(userform) {
+		console.log('UserService.login');
+		return $data.post(config.login, self, userform).then(function(data) {
+			self.updateUser(data)
+		});
+	}
+	
+	self.logout = function () {
+		console.log('UserService.logout');
+		self.user = null;
+		$localStorage.remove('GoAmaUser');
+		//FacebookService.logout();
+		$state.go('login');
+	}
 
 	self.create = function (userform) {
 		console.log('UserService.create');
 		return $data.post(config.create, self, userform);
 	}
 
-	self.createUser = function (user) {
-		console.log('UserService.createUser');
-		var promise = $http.post(DOMAIN + '/ajax/users/register', user)
-			.success(function (response, status, headers, config) {
-				switch (response.status) {
-					case 'SUCCESS':
-						self.updateUser(response.data).then(function () {
-							$state.go('menu.tabs.home');
-						});
-						break;
-					case 'MESSAGE':
-						alert(response.data);
-						$state.go('login');
-						break;
-					default:
-						alert('there was a server error for creating the user');
-						console.log(response);
-						break;
-				}
-			})
-			.error(function (response, status, headers, config) {
-				console.log(['error', status, headers, config]);
-			});
-		return promise;
+	self.recover = function (userform) {
+		console.log('UserService.recover');
+		return $data.post(config.recover, self, userform);
 	}
 
 	self.updateUser = function (user) {
 		console.log('UserService.updateUser');
 		var deferred = $q.defer();
 		self.user = user;
-		$localStorage.setObject('GoAmarilloUser', self.user);
+		$localStorage.setObject('GoAmaUser', self.user);
 		deferred.resolve(self.user);
 		return deferred.promise;
 	}
@@ -68,117 +112,82 @@ angular.module('greyback.services', [])
 		console.log('UserService.latest');
 		return $data.get(config.latest, self);
 	}
-
-	self.recoverUser = function (user) {
-		console.log(['UserService.recoverUser'], user);
-		var promise = $http.post(DOMAIN + '/ajax/users/recover', user)
-			.success(function (response, status, headers, config) {
-				switch (response.status) {
-					case 'SUCCESS':
-						$util.alert('An email has been sent to this address with password reset instructions.').then(function () {
-							$state.go('login');
-						});
-						break;
-					case 'MESSAGE':
-						$util.alert(response.data).then(function () {
-							$state.go('login');
-						});
-						break;
-					case 'ERROR':
-						alert(response.data);
-						break;
-					default:
-						alert('there was a server error for Messages');
-						console.log(response);
-						break;
-				}
-			})
-			.error(function (response, status, headers, config) {
-				console.log(['error', status, headers, config]);
-			});
-		return promise;
-	}
-
-	self.article = function (articleIndex) {
-		console.log(['NewsService.get', articleIndex]);
-		if (self.banners.length) {
-			return self.banners[articleIndex];
-		} else {
-			$location.path('#/menu/tabs/home');
-			$location.replace();
-			return null;
-		}
-	}
 })
 
-.service('FacebookService', function ($ionicLoading, UserService) {
+.service('FacebookService', function ($ionicLoading, $localStorage, UserService) {
 	console.warn('FacebookService');
 	var self = this;
+	
+	if(typeof facebookConnectPlugin == 'undefined') {
+		facebookConnectPlugin = {
+			login: function(options, success, error) {
+				success({});
+			},
+			logout: function(success, error) {
+				success({});
+			}
+		}
+	}
 
-	self.logout = function() {
-		facebookConnectPlugin.logout(function(success) {
-			console.log(['logout success',success]);
-		}, function(error) {
-			console.log(['logout error',error]);
+	self.logout = function () {
+		facebookConnectPlugin.logout(function (success) {
+			console.log(['logout success', success]);
+		}, function (error) {
+			console.log(['logout error', error]);
 		});
 	}
-	
+
+	//User hits the fb login button
 	self.login = function () {
 		console.log('FacebookService.login');
-		facebookConnectPlugin.getLoginStatus(function (success) {
-			console.log(['success', success]);
-			if (success.status === 'connected') {
-				// The user is logged in and has authenticated your app, and response.authResponse supplies
-				// the user's ID, a valid access token, a signed request, and the time the access token
-				// and signed request each expire
-				console.log('getLoginStatus', success.status);
-
-				// Check if we have our user saved
-				//USE LOCALSTORAGE or the like
-				var user = {}; //UserService.getUser('facebook');
-
-				if (!user.userID) {
-					getFacebookProfileInfo(success.authResponse)
-						.then(function (profileInfo) {
-							console.log(['profileInfo', profileInfo]);
-							// For the purpose of this example I will store user data on local storage
-							//							UserService.setUser({
-							//								authResponse: success.authResponse,
-							//								userID: profileInfo.id,
-							//								name: profileInfo.name,
-							//								email: profileInfo.email,
-							//								picture: "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
-							//							});
-
-							$state.go('app.home');
-						}, function (fail) {
-							// Fail get profile info
-							console.log('profile info fail', fail);
-						});
-				} else {
-					$state.go('app.home');
-				}
-			} else {
-				// If (success.status === 'not_authorized') the user is logged in to Facebook,
-				// but has not authenticated your app
-				// Else the person is not logged into Facebook,
-				// so we're not sure if they are logged into this app or not.
-
-				console.log('getLoginStatus.fail', success.status);
-
-				$ionicLoading.show({
-					template: 'Logging in...'
-				});
-
-				// Ask the permissions you need. You can learn more about
-				// FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
-				facebookConnectPlugin.login(['email', 'public_profile'], function (success) {
-					console.warn(['connect success', success]);
-				}, function (error) {
-					console.warn(['connect error', error]);
-				});
-			}
+		
+		$ionicLoading.show({
+			template: 'Logging in...'
 		});
+
+		// Ask the permissions you need. You can learn more about
+		// FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
+		facebookConnectPlugin.login(['email', 'public_profile'], function (success) {
+			console.warn(['FB connect success', success]);
+			$ionicLoading.hide();
+		}, function (error) {
+			console.warn(['FB connect error', error]);
+		});
+		
+		//this fires the os facebook login/permissions
+//		facebookConnectPlugin.getLoginStatus(function (success) {
+//			if (success.status === 'connected') {
+//				// The user is logged in and has authenticated your app, and response.authResponse supplies
+//				// the user's ID, a valid access token, a signed request, and the time the access token
+//				// and signed request each expire
+//				console.log('getLoginStatus', success.status);
+//
+//				getFacebookProfileInfo(success.authResponse)
+//					.then(function (profileInfo) {
+//						console.log(['profileInfo', profileInfo]);
+//						// For the purpose of this example I will store user data on local storage
+//						//							UserService.setUser({
+//						//								authResponse: success.authResponse,
+//						//								userID: profileInfo.id,
+//						//								name: profileInfo.name,
+//						//								email: profileInfo.email,
+//						//								picture: "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
+//						//							});
+//
+//						$state.go('app.home');
+//					}, function (fail) {
+//						// Fail get profile info
+//						console.log('profile info fail', fail);
+//					});
+//			} else {
+//				// If (success.status === 'not_authorized') the user is logged in to Facebook,
+//				// but has not authenticated your app
+//				// Else the person is not logged into Facebook,
+//				// so we're not sure if they are logged into this app or not.
+//
+//				
+//			}
+//		});
 	}
 
 	var fbLoginSuccess = function (response) {

@@ -9964,40 +9964,42 @@ p {
 .tab-nav .tab-item {
   text-transform: uppercase; }
 
-#login {
+#login, #forgot_page {
   background-image: url(../img/login_bg.jpg);
   background-size: cover; }
-  #login .list-inset {
+  #login .list-inset, #forgot_page .list-inset {
     margin: 10px; }
-  #login form {
+  #login form, #forgot_page form {
     text-transform: uppercase; }
-    #login form a {
+    #login form a, #forgot_page form a {
       color: #fff;
       text-decoration: none;
       font-weight: 700;
       font-size: 12px; }
-  #login input.button {
+  #login .button, #forgot_page .button {
     font-size: 14px;
     line-height: 38px;
     height: 38px;
     min-height: inherit; }
-  #login .padding {
+  #login .padding, #forgot_page .padding {
     padding: 20px 50px 0px; }
-  #login img {
+  #login img, #forgot_page img {
     width: 100%; }
-  #login .signup {
+  #login .signup, #forgot_page .signup {
     line-height: 16px;
     font-size: 14px;
     letter-spacing: 2px;
-    padding-top: 8px; }
-    #login .signup span {
+    padding-top: 8px;
+    min-height: inherit;
+    height: auto; }
+    #login .signup span, #forgot_page .signup span {
       color: #52AF87;
       font-weight: 700;
       font-size: 18px;
       line-height: 24px; }
-  #login p {
+  #login p, #forgot_page p {
     font-size: 12px; }
-    #login p a {
+    #login p a, #forgot_page p a {
       color: #fff;
       text-decoration: none;
       font-weight: 700; }

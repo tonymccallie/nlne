@@ -97,7 +97,7 @@ p {
 	}
 }
 
-#login {
+#login, #forgot_page {
 	background-image: url(../img/login_bg.jpg);
 	background-size: cover;
 	// color: $white; 
@@ -114,7 +114,7 @@ p {
 			font-size: 12px;
 		}
 	}
-	input.button {
+	.button {
 		font-size: 14px;
 		line-height: 38px;
 		height: 38px;
@@ -131,6 +131,8 @@ p {
 		font-size: 14px;
 		letter-spacing: 2px;
 		padding-top: 8px;
+		min-height: inherit;
+		height: auto;
 		span {
 			color: $green;
 			font-weight: 700;

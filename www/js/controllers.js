@@ -1,6 +1,6 @@
 angular.module('greyback.controllers', [])
 
-.controller('AppController', function ($scope, $sce, $ionicModal, $timeout, UserService) {
+.controller('AppController', function ($scope, $sce, $ionicModal, $timeout, $util, UserService, FacebookService, user) {
 	console.warn('AppController');
 	// With the new view caching in Ionic, Controllers are only called
 	// when they are recreated or on app start, instead of every page change.
@@ -20,14 +20,22 @@ angular.module('greyback.controllers', [])
 		alert(msg);
 	}
 
+	$scope.logout = function () {
+		$util.confirm('Are you sure you want to logout?').then(function (answer) {
+			if (answer) {
+				FacebookService.logout();
+				UserService.logout();
+			}
+		});
+	}
 })
 
 .controller('UserController', function ($scope, $state, $q, $ionicLoading, $ionicPopup, $util, UserService, FacebookService) {
 	console.log('UserController');
 
 	$scope.signupUser = {};
-
 	$scope.loginUser = {};
+	$scope.recoverUser = {};
 
 	$scope.signup = function (form) {
 		console.log('UserController.signup');
@@ -47,52 +55,36 @@ angular.module('greyback.controllers', [])
 		console.log('UserController.login');
 		if (form.$valid) {
 			UserService.login($scope.loginUser).then(function (data) {
+				console.log(['step2', data]);
 				$scope.loginUser = {};
-				$state.go('login');
+				$state.go('menu.tabs.home');
 			});
 		} else {
 			$util.alert('There was a problem with the information you entered. Please verify that you have all the needed information and try again.');
 		}
 	}
-	
-	$scope.fblogout = function() {
-		FacebookService.logout();
-		$util.alert('Facebook.logout').then(function() {
-			$state.go('login');
-		});
-	}
-	
-	$scope.fblogin = function () {
-		console.log('UserController.fblogin');
-		
-		FacebookService.login();
+
+	$scope.recover = function (form) {
+		console.log('UserController.recover');
+		if (form.$valid) {
+			UserService.recover($scope.recoverUser).then(function (data) {
+				$util.alert('An email has been sent to this address with password reset instructions.').then(function () {
+					$scope.recoverUser = {};
+					$state.go('login');
+				});
+			});
+		} else {
+			$util.alert('There was a problem with the information you entered. Please verify that you have all the needed information and try again.');
+		}
 	}
 
-	$scope.fbloginOLD = function () {
+	$scope.fblogout = function () {
+		FacebookService.logout();
+	}
+
+	$scope.fblogin = function () {
 		console.log('UserController.fblogin');
-		ngFB.login({
-			scope: 'email,public_profile'
-		}).then(function (response) {
-			if (response.status === 'connected') {
-				console.log(['Facebook login succeeded', response]);
-				ngFB.api({
-					path: '/me',
-					params: {
-						fields: 'id,email,first_name,last_name'
-					}
-				}).then(function (user) {
-					UserService.saveFacebook(user).then(function (user) {
-						$scope.user = user;
-					});
-					//MAKE AN APP USER
-					//$scope.user = user;
-				}, function (error) {
-					alert('Facebook error: ' + error.error_description);
-				});
-			} else {
-				alert('Facebook login failed');
-			}
-		});
+		FacebookService.login();
 	}
 })
 

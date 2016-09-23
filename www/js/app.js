@@ -54,7 +54,13 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			url: '/menu',
 			abstract: true,
 			templateUrl: 'templates/system/menu.html',
-			controller: 'AppController'
+			controller: 'AppController',
+			resolve: {
+				user: function (UserService) {
+					console.log('Config.state.menu.resolve.user');
+					return UserService.check();
+				}
+			}
 		})
 
 	.state('menu.tabs', {
@@ -112,7 +118,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.profile', {
 		url: '/profile',
 		views: {
@@ -127,16 +133,17 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		templateUrl: "templates/users/login.html",
 		controller: "UserController"
 	})
-	
+
 	.state('signup', {
 		url: '/signup',
 		templateUrl: "templates/users/signup.html",
 		controller: "UserController"
 	})
-	
+
 	.state('forgot', {
 		url: '/forgot',
-		templateUrl: "templates/users/forgot.html"
+		templateUrl: "templates/users/forgot.html",
+		controller: "UserController"
 	});
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/login');

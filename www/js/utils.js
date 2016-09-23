@@ -179,6 +179,15 @@ angular.module('greyback.utils', [])
 		},
 		getArray: function (key) {
 			return JSON.parse($window.localStorage[key] || '[]');
-		}
+		},
+		remove: function (key) {
+			return $window.localStorage.removeItem(key);
+		},
+		toJSON: function (obj) {
+			return JSON.stringify(obj);
+		},
+		toObj: function (json) {
+			return JSON.parse(json || "{}");
+		},
 	}
 });
