@@ -1,0 +1,31 @@
+<ion-view view-title="Start your plan">
+	<ion-nav-title>
+		<img src="img/logo.png" class="title-image" />
+	</ion-nav-title>
+	<ion-content>
+		<div class="subheader"><span class="goplan-plan"></span>Step 2: Career School</div>
+		<div class="padding">
+			<i>* denotes required field</i>
+			<form name="careerForm" novalidate="" ng-submit="step2(careerForm)">
+				<div class="list list-inset">
+					<span class="input-label">Which Career School Are you Going to Attend? *</span>
+					<div class="item item-input item-select" ng-class="{ 'has-errors' : plan_user.school.$invalid && careerForm.$submitted, 'no-errors' : careerForm.school.$valid  && careerForm.$submitted}">
+						<div class="input-label">&nbsp;</div>
+						<select name="school" ng-model="plan_user.school" required>
+							<option value="Amarillo College">Amarillo College</option>
+							<option value="Vista College">Vista College</option>
+							<option value="Milan Institute">Milan Institute</option>
+							<option value="Wade Gordon">Wade Gordon</option>
+							<option value="Exsposito School">Exsposito School</option>
+							<option value="Other">Other (Fill In)</option>
+						</select>
+					</div>
+					<div class="form-errors" ng-show="careerForm.school.$error && careerForm.$submitted" ng-messages="careerForm.school.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
+				</div>
+				<input type="submit" value="Continue" class="button button-block button-positive" />
+			</form>
+		</div>
+	</ion-content>
+</ion-view>

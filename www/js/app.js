@@ -94,6 +94,70 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
+	
+	.state('menu.tabs.plan_college', {
+		url: '/plan_college',
+		views: {
+			'tab-plan': {
+				templateUrl: "templates/plan/college.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.plan_start', {
+		url: '/plan_start',
+		views: {
+			'tab-plan': {
+				templateUrl: "templates/plan/start.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.plan_career', {
+		url: '/plan_career',
+		views: {
+			'tab-plan': {
+				templateUrl: "templates/plan/plan_career.html",
+				controller: "PlanController"
+			}
+		}
+	})
+	
+	.state('menu.tabs.plan_military', {
+		url: '/plan_military',
+		views: {
+			'tab-plan': {
+				templateUrl: "templates/plan/plan_military.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.plan_twoyear', {
+		url: '/plan_twoyear',
+		views: {
+			'tab-plan': {
+				templateUrl: "templates/plan/plan_twoyear.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.plan_fouryear', {
+		url: '/plan_fouryear',
+		views: {
+			'tab-plan': {
+				templateUrl: "templates/plan/plan_fouryear.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.plan_results', {
+		url: '/plan_results',
+		views: {
+			'tab-plan': {
+				templateUrl: "templates/plan/plan_results.html"
+			}
+		}
+	})
 
 	.state('menu.tabs.explore', {
 		url: '/explore',

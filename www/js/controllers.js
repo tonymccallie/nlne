@@ -135,45 +135,51 @@ angular.module('greyback.controllers', [])
 
 .controller('JobController', function ($scope, $q, $util, $state, JobService) {
 	console.log('JobController');
-	
+
 	$scope.filter = {};
-	
+
 	$scope.jobs = JobService.results;
-	
+
 	$scope.job = JobService.details;
-	
-	if(!$scope.jobs.length) {
+
+	if (!$scope.jobs.length) {
 		$state.go('menu.tabs.explore_search');
 	}
-	
-	$scope.search = function(form) {
-		JobService.search($scope.filter).then(function(results) {
+
+	$scope.search = function (form) {
+		JobService.search($scope.filter).then(function (results) {
 			$scope.jobs = JobService.results;
 			$state.go('menu.tabs.explore_results');
 		});
 	}
-	
-	$scope.details = function(index) {
-		JobService.set($scope.jobs[index]).then(function() {
+
+	$scope.details = function (index) {
+		JobService.set($scope.jobs[index]).then(function () {
 			$state.go('menu.tabs.explore_details');
 		});
 	}
 })
 
-.controller('EventController',function($scope, $state, events, EventService) {
+.controller('EventController', function ($scope, $state, events, EventService) {
 	console.log('EventController');
 	$scope.events = events;
-	
-	if(!$scope.events.length) {
+
+	if (!$scope.events.length) {
 		$state.go('menu.tabs.dates');
 	}
-	
+
 	$scope.event = EventService.details;
-	
-	$scope.details = function(month,index) {
+
+	$scope.details = function (month, index) {
 		console.log('EventController.details');
-		EventService.set($scope.events[month]['events'][index]).then(function() {
+		EventService.set($scope.events[month]['events'][index]).then(function () {
 			$state.go('menu.tabs.date_details');
 		});
 	}
+})
+
+.controller('PlanController', function ($scope, $state, PlanService) {
+	console.log('PlanController');
+	
+	$scope.plan_user = {};
 });

@@ -261,14 +261,14 @@ angular.module('greyback.services', [])
 	};
 
 	self.events = [];
-	
+
 	self.details = {};
 
 	self.upcoming = function () {
 		console.log('EventService.upcoming');
 		return $data.get(config.upcoming, self);
 	}
-	
+
 	self.set = function (event) {
 		console.log('EventService.set');
 		var deferred = $q.defer();
@@ -276,6 +276,11 @@ angular.module('greyback.services', [])
 		deferred.resolve(self.details);
 		return deferred.promise;
 	}
+})
+
+.service('PlanService', function () {
+	console.warn('PlanService');
+	var self = this;
 })
 
 .service('PtrService', function ($timeout, $ionicScrollDelegate) {
