@@ -178,8 +178,22 @@ angular.module('greyback.controllers', [])
 	}
 })
 
-.controller('PlanController', function ($scope, $state, PlanService) {
+.controller('PlanController', function ($scope, $state, $util, PlanService, path) {
 	console.log('PlanController');
-	
-	$scope.plan_user = {};
+
+	$scope.plan_user = PlanService.plan;
+
+	$scope.store = function (form) {
+		console.log('PlanController.store');
+		console.log([$scope.plan_user, form]);
+		
+		if (form.$valid) {
+			$scope.plan_user.path = path;
+			PlanService.set($scope.plan_user).then(function (result) {
+				$state.go('menu.tabs.plan_results');
+			});
+		} else {
+			$util.alert('There was a problem with the information you entered. Please verify that you have all the needed information and try again.');
+		}
+	}
 });

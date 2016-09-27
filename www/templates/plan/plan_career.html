@@ -4,14 +4,15 @@
 	</ion-nav-title>
 	<ion-content>
 		<div class="subheader"><span class="goplan-plan"></span>Step 2: Career School</div>
+		<img src="img/my_plan.png" />
 		<div class="padding">
 			<i>* denotes required field</i>
-			<form name="careerForm" novalidate="" ng-submit="step2(careerForm)">
+			<form name="careerForm" novalidate="" ng-submit="store(careerForm)">
 				<div class="list list-inset">
 					<span class="input-label">Which Career School Are you Going to Attend? *</span>
 					<div class="item item-input item-select" ng-class="{ 'has-errors' : plan_user.school.$invalid && careerForm.$submitted, 'no-errors' : careerForm.school.$valid  && careerForm.$submitted}">
 						<div class="input-label">&nbsp;</div>
-						<select name="school" ng-model="plan_user.school" multiple="true" required>
+						<select name="school" ng-model="plan_user.school" required>
 							<option value="Amarillo College">Amarillo College</option>
 							<option value="Vista College">Vista College</option>
 							<option value="Milan Institute">Milan Institute</option>
@@ -24,6 +25,56 @@
 						<div ng-messages-include="templates/system/error.html"></div>
 					</div>
 				</div>
+
+				<div class="list list-inset">
+					<span class="input-label">What is the program? *</span>
+					<div class="item item-input item-select" ng-class="{ 'has-errors' : plan_user.program.$invalid && careerForm.$submitted, 'no-errors' : careerForm.program.$valid  && careerForm.$submitted}">
+						<div class="input-label">&nbsp;</div>
+						<select name="program" ng-model="plan_user.program" required>
+							<option value="Automotive Technology">Automotive Technology</option>
+							<option value="Automotive Collision">College</option>
+							<option value="Aviation Maintenance">Automotive Collision</option>
+							<option value="Course Rotations">Course Rotations</option>
+							<option value="Fire">Fire</option>
+							<option value="HVACR">HVACR</option>
+							<option value="Diesel Mechanics Technology">Diesel Mechanics Technology</option>
+							<option value="Instrumentation & Electronics">Instrumentation &amp; Electronics</option>
+							<option value="Machining">Machining</option>
+							<option value="Solar">Solar</option>
+							<option value="Truck Driving and Logistics">Truck Driving and Logistics</option>
+							<option value="Welding">Welding</option>
+							<option value="Wind">Wind</option>
+							<option value="Industrial Maintenance">Industrial Maintenance</option>
+							<option value="Heavy Equip. Contract Training">Heavy Equip. Contract Training</option>
+							<option value="Administrative Medical Assistant">Administrative Medical Assistant</option>
+							<option value="Dental Assistant">Dental Assistant</option>
+							<option value="Medical Assisting">Medical Assisting</option>
+							<option value="Pharmacy Technician">Pharmacy Technician</option>
+							<option value="Cosmetology">Cosmetology</option>
+							<option value="Business Administration">Business Administration</option>
+							<option value="Business Management">Business Management</option>
+							<option value="HVAC">HVAC</option>
+							<option value="Medical Assistant">Medical Assistant</option>
+							<option value="Vocational Nursing">Vocational Nursing</option>
+							<option value="Other">Other (Fill In)</option>
+						</select>
+					</div>
+					<div class="form-errors" ng-show="careerForm.program.$error && careerForm.$submitted" ng-messages="careerForm.program.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
+				</div>
+
+				<div class="list list-inset">
+					<span class="input-label">What steps have you taken?</span>
+					<ion-checkbox ng-model="plan_user.checklist.step1">Meet with your school advisor</ion-checkbox>
+					<ion-checkbox ng-model="plan_user.checklist.step2">Setup a campus visit</ion-checkbox>
+					<ion-checkbox ng-model="plan_user.checklist.step3">Apply</ion-checkbox>
+					<ion-checkbox ng-model="plan_user.checklist.step4">Apply for Scholarship/financial Aid</ion-checkbox>
+					<ion-checkbox ng-model="plan_user.checklist.step5">Take Pre-Requisite Classes</ion-checkbox>
+					<ion-checkbox ng-model="plan_user.checklist.step6">Take Entrance Exam SAT/ACT</ion-checkbox>
+					<ion-checkbox ng-model="plan_user.checklist.step7">Sign up for Classes</ion-checkbox>
+				</div>
+				
 				<input type="submit" value="Continue" class="button button-block button-positive" />
 			</form>
 		</div>

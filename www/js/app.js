@@ -120,6 +120,11 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 				templateUrl: "templates/plan/plan_career.html",
 				controller: "PlanController"
 			}
+		},
+		resolve: {
+			path: function() {
+				return 'Career School';
+			}
 		}
 	})
 	
@@ -127,7 +132,13 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/plan_military',
 		views: {
 			'tab-plan': {
-				templateUrl: "templates/plan/plan_military.html"
+				templateUrl: "templates/plan/plan_military.html",
+				controller: "PlanController"
+			}
+		},
+		resolve: {
+			path: function() {
+				return 'Military';
 			}
 		}
 	})
@@ -136,7 +147,13 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/plan_twoyear',
 		views: {
 			'tab-plan': {
-				templateUrl: "templates/plan/plan_twoyear.html"
+				templateUrl: "templates/plan/plan_twoyear.html",
+				controller: "PlanController"
+			}
+		},
+		resolve: {
+			path: function() {
+				return 'Two Year College';
 			}
 		}
 	})
@@ -145,7 +162,13 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/plan_fouryear',
 		views: {
 			'tab-plan': {
-				templateUrl: "templates/plan/plan_fouryear.html"
+				templateUrl: "templates/plan/plan_fouryear.html",
+				controller: "PlanController"
+			}
+		},
+		resolve: {
+			path: function() {
+				return 'Four Year College';
 			}
 		}
 	})
@@ -154,7 +177,13 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/plan_results',
 		views: {
 			'tab-plan': {
-				templateUrl: "templates/plan/plan_results.html"
+				templateUrl: "templates/plan/plan_results.html",
+				controller: "PlanController"
+			}
+		},
+		resolve: {
+			path: function() {
+				return null;
 			}
 		}
 	})
@@ -164,6 +193,15 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		views: {
 			'tab-explore': {
 				templateUrl: "templates/explore/explore_home.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.explore_local', {
+		url: '/local',
+		views: {
+			'tab-explore': {
+				templateUrl: "templates/explore/local.html"
 			}
 		}
 	})
@@ -237,6 +275,15 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		views: {
 			'tab-quizzes': {
 				templateUrl: "templates/quizzes/quizzes_home.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.quiz_results', {
+		url: '/quiz_results',
+		views: {
+			'tab-quizzes': {
+				templateUrl: "templates/quizzes/quiz_results.html"
 			}
 		}
 	})
