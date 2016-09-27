@@ -13,7 +13,7 @@
 						{{month.title}}
 					</div>
 					<div class="item" ng-repeat="event in month.events" ng-click="details(key,$index)">
-						<b>{{event.Event.event_date | date: 'dd'}}</b> {{event.Event.title}}
+						<b>{{event.Event.event_date | date: 'dd'}}</b> - {{event.Event.title}}
 					</div>
 				</div>
 			</div>
