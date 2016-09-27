@@ -10031,6 +10031,6 @@ p {
       margin-right: 15px;
       font-weight: 300; }
 
-#profile_form .input-label {
+.input-label {
   width: auto;
   max-width: none; }

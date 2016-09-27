@@ -1,0 +1,19 @@
+<ion-view title="Results">
+	<ion-nav-title>
+		<img src="img/logo.png" class="title-image" />
+	</ion-nav-title>
+	<ion-content>
+		<div class="subheader"><span class="goplan-explore"></span>Career Results</div>
+		<div class="padding">
+			<div class="list list-inset">
+				<div class="item item-divider">
+					{{jobs.length}} results found
+				</div>
+				<div ng-click="details($index)" class="item" ng-repeat="job in jobs">
+					{{job.Job.title}}
+				</div>
+			</div>
+			<a ui-sref="menu.tabs.explore_search" class="button button-block button-dark">Return to Search</a>
+		</div>
+	</ion-content>
+</ion-view>

@@ -14,7 +14,7 @@ if (devtest) {
 angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages'])
 
 .run(function ($ionicPlatform, ImgCache, ngFB) {
-	console.log('.run');
+	console.warn('.run');
 	ngFB.init({
 		appId: '512626388922766',
 		oauthRedirectURL: DOMAIN + '/users/oauthlogin',
@@ -37,7 +37,8 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 	});
 })
 
-.config(function ($stateProvider, $urlRouterProvider, ImgCacheProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ImgCacheProvider) {
+	console.warn('.config')
 	ImgCacheProvider.setOptions({
 		debug: true,
 		usePersistentCache: true
@@ -48,6 +49,8 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 	// ImgCache library is initialized automatically,
 	// but set this option if you are using platform like Ionic -
 	// in this case we need init imgcache.js manually after device is ready
+
+	$ionicConfigProvider.backButton.previousTitleText(false).text('');
 
 	$stateProvider
 		.state('menu', {
@@ -101,11 +104,66 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		}
 	})
 
+	.state('menu.tabs.explore_search', {
+		url: '/explore_search',
+		views: {
+			'tab-explore': {
+				templateUrl: "templates/explore/search.html",
+				controller: "JobController"
+			}
+		}
+	})
+
+	.state('menu.tabs.explore_results', {
+		url: '/explore_results',
+		cache: false,
+		views: {
+			'tab-explore': {
+				templateUrl: "templates/explore/results.html",
+				controller: "JobController"
+			}
+		}
+	})
+
+	.state('menu.tabs.explore_details', {
+		url: '/explore_details',
+		cache: false,
+		views: {
+			'tab-explore': {
+				templateUrl: "templates/explore/details.html",
+				controller: "JobController"
+			}
+		}
+	})
+
 	.state('menu.tabs.dates', {
 		url: '/dates',
 		views: {
 			'tab-dates': {
-				templateUrl: "templates/dates/dates_home.html"
+				templateUrl: "templates/dates/dates_home.html",
+				controller: "EventController"
+			}
+		},
+		resolve: {
+			events: function (EventService) {
+				console.log('menu.tabs.dates.resolve.events');
+				return EventService.upcoming();
+			}
+		}
+	})
+
+	.state('menu.tabs.date_details', {
+		url: '/date_details',
+		cache: false,
+		views: {
+			'tab-dates': {
+				templateUrl: "templates/dates/details.html",
+				controller: "EventController"
+			}
+		},
+		resolve: {
+			events: function (EventService) {
+				return EventService.events;
 			}
 		}
 	})
@@ -121,6 +179,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 
 	.state('menu.tabs.profile', {
 		url: '/profile',
+		controller: "UserController",
 		views: {
 			'tab-static': {
 				templateUrl: "templates/users/profile.html"

@@ -19,11 +19,16 @@ angular.module('greyback.services', [])
 			name: 'UserService.recover',
 			url: '/ajax/users/recover',
 			variable: 'user'
+		},
+		profile: {
+			name: 'UserService.profile',
+			url: '/ajax/users/update',
+			variable: 'user'
 		}
 	};
 
 	self.user = null;
-	
+
 	self.init = function () {
 		console.log('UserService.init');
 		var deferred = $q.defer();
@@ -45,7 +50,7 @@ angular.module('greyback.services', [])
 
 		return deferred.promise;
 	}
-	
+
 	self.local = function ($category) {
 		console.log('UserService.local');
 		var deferred = $q.defer();
@@ -53,7 +58,7 @@ angular.module('greyback.services', [])
 		deferred.resolve(localUser);
 		return deferred.promise;
 	}
-	
+
 	self.check = function () {
 		console.log('UserService.check');
 		var deferred = $q.defer();
@@ -68,14 +73,14 @@ angular.module('greyback.services', [])
 		}
 		return deferred.promise;
 	}
-	
-	self.login = function(userform) {
+
+	self.login = function (userform) {
 		console.log('UserService.login');
-		return $data.post(config.login, self, userform).then(function(data) {
+		return $data.post(config.login, self, userform).then(function (data) {
 			self.updateUser(data)
 		});
 	}
-	
+
 	self.logout = function () {
 		console.log('UserService.logout');
 		self.user = null;
@@ -92,6 +97,13 @@ angular.module('greyback.services', [])
 	self.recover = function (userform) {
 		console.log('UserService.recover');
 		return $data.post(config.recover, self, userform);
+	}
+
+	self.profile = function (userform) {
+		console.log('UserService.profile');
+		return $data.post(config.profile, self, userform).then(function (data) {
+			self.updateUser(data)
+		});;
 	}
 
 	self.updateUser = function (user) {
@@ -114,24 +126,38 @@ angular.module('greyback.services', [])
 	}
 })
 
-.service('FacebookService', function ($q, $ionicLoading, $localStorage, UserService) {
+.service('FacebookService', function ($q, $ionicLoading, $localStorage, $data, $state, UserService) {
 	console.warn('FacebookService');
 	var self = this;
-	
-	if(typeof facebookConnectPlugin == 'undefined') {
+	var config = {
+		facebook: {
+			name: 'FacebookService.facebook',
+			url: '/ajax/users/facebook',
+			variable: 'user'
+		}
+	};
+
+	self.user = {};
+
+	if (typeof facebookConnectPlugin == 'undefined') {
 		facebookConnectPlugin = {
-			login: function(options, success, error) {
+			login: function (options, success, error) {
 				success({
 					authResponse: {
 						accessToken: '123456'
 					}
 				});
 			},
-			logout: function(success, error) {
+			logout: function (success, error) {
 				success({});
 			},
-			api: function(auth, rando, success, error) {
-				success({});
+			api: function (auth, rando, success, error) {
+				success({
+					first_name: 'Tony',
+					last_name: 'McCallie',
+					email: 'tonymccallie@gmail.com',
+					id: '1234567'
+				});
 			}
 		}
 	}
@@ -147,7 +173,7 @@ angular.module('greyback.services', [])
 	//User hits the fb login button
 	self.login = function () {
 		console.log('FacebookService.login');
-		
+
 		$ionicLoading.show({
 			template: 'Logging in...'
 		});
@@ -158,8 +184,13 @@ angular.module('greyback.services', [])
 			console.warn(['FB connect success', success]);
 			getFacebookProfileInfo(success.authResponse).then(function (profileInfo) {
 				console.log(['profileInfo', profileInfo]);
-				
+
 				//TODO create user here
+				$data.post(config.facebook, self, profileInfo).then(function (data) {
+					UserService.updateUser(data).then(function () {
+						$state.go('menu.tabs.home');
+					});
+				});
 			}, function (fail) {
 				// Fail get profile info
 				console.log('profile info fail', fail);
@@ -167,94 +198,84 @@ angular.module('greyback.services', [])
 			$ionicLoading.hide();
 		}, function (error) {
 			console.warn(['FB connect error', error]);
-		});
-		
-		//this fires the os facebook login/permissions
-//		facebookConnectPlugin.getLoginStatus(function (success) {
-//			if (success.status === 'connected') {
-//				// The user is logged in and has authenticated your app, and response.authResponse supplies
-//				// the user's ID, a valid access token, a signed request, and the time the access token
-//				// and signed request each expire
-//				console.log('getLoginStatus', success.status);
-//
-//				getFacebookProfileInfo(success.authResponse)
-//					.then(function (profileInfo) {
-//						console.log(['profileInfo', profileInfo]);
-//						// For the purpose of this example I will store user data on local storage
-//						//							UserService.setUser({
-//						//								authResponse: success.authResponse,
-//						//								userID: profileInfo.id,
-//						//								name: profileInfo.name,
-//						//								email: profileInfo.email,
-//						//								picture: "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
-//						//							});
-//
-//						$state.go('app.home');
-//					}, function (fail) {
-//						// Fail get profile info
-//						console.log('profile info fail', fail);
-//					});
-//			} else {
-//				// If (success.status === 'not_authorized') the user is logged in to Facebook,
-//				// but has not authenticated your app
-//				// Else the person is not logged into Facebook,
-//				// so we're not sure if they are logged into this app or not.
-//
-//				
-//			}
-//		});
+		})
 	}
-
-	var fbLoginSuccess = function (response) {
-		console.log('FacebookService.fbLoginSuccess');
-		if (!response.authResponse) {
-			fbLoginError("Cannot find the authResponse");
-			return;
-		}
-
-		var authResponse = response.authResponse;
-
-		getFacebookProfileInfo(authResponse)
-			.then(function (profileInfo) {
-				// For the purpose of this example I will store user data on local storage
-				UserService.setUser({
-					authResponse: authResponse,
-					userID: profileInfo.id,
-					name: profileInfo.name,
-					email: profileInfo.email,
-					picture: "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
-				});
-				$ionicLoading.hide();
-				$state.go('app.home');
-			}, function (fail) {
-				// Fail get profile info
-				console.log('profile info fail', fail);
-			});
-	};
-
-	// This is the fail callback from the login method
-	var fbLoginError = function (error) {
-		console.log('FacebookService.fbLoginError', error);
-		$ionicLoading.hide();
-	};
 
 	// This method is to get the user profile info from the facebook api
 	var getFacebookProfileInfo = function (authResponse) {
 		console.log('FacebookService.getFacebookProfileInfo');
-		var info = $q.defer();
+		var deferred = $q.defer();
 
-		facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
+		facebookConnectPlugin.api('/me?fields=email,first_name,last_name&access_token=' + authResponse.accessToken, null,
 			function (response) {
 				console.log(response);
-				info.resolve(response);
+				deferred.resolve(response);
 			},
 			function (response) {
 				console.log(response);
-				info.reject(response);
+				deferred.reject(response);
 			}
 		);
-		return info.promise;
+		return deferred.promise;
 	};
+})
+
+.service('JobService', function ($q, $data) {
+	console.warn('JobService');
+	var self = this;
+	var config = {
+		search: {
+			name: 'JobService.search',
+			url: '/ajax/jobs/search',
+			variable: 'results'
+		}
+	};
+
+	self.results = [];
+
+	self.details = {};
+
+	self.search = function (filter) {
+		console.log('JobService.search');
+		return $data.post(config.search, self, filter);
+	}
+
+	self.set = function (job) {
+		console.log('JobService.set');
+		var deferred = $q.defer();
+		self.details = job;
+		deferred.resolve(self.details);
+		return deferred.promise;
+	}
+})
+
+.service('EventService', function ($q, $data) {
+	console.warn('EventService');
+	var self = this;
+	var config = {
+		upcoming: {
+			name: 'EventService.upcoming',
+			url: '/ajax/events/upcoming',
+			variable: 'events'
+		}
+	};
+
+	self.events = [];
+	
+	self.details = {};
+
+	self.upcoming = function () {
+		console.log('EventService.upcoming');
+		return $data.get(config.upcoming, self);
+	}
+	
+	self.set = function (event) {
+		console.log('EventService.set');
+		var deferred = $q.defer();
+		self.details = event;
+		deferred.resolve(self.details);
+		return deferred.promise;
+	}
 })
 
 .service('PtrService', function ($timeout, $ionicScrollDelegate) {

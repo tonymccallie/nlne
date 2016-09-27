@@ -1,0 +1,18 @@
+<ion-view title="Details">
+	<ion-nav-title>
+		<img src="img/logo.png" class="title-image" />
+	</ion-nav-title>
+	<ion-content>
+		<div class="subheader"><span class="goplan-explore"></span>Job Details</div>
+		<div class="padding">
+			<h4>{{job.Job.title}}</h4>
+			<p><b>Annual income:</b><br /> {{job.Job.annual | currency}}</p>
+			<p><b>Education Required:</b><br /> {{job.Job.education}}</p>
+			<div ng-if="job.Job.training != 'None'">
+				<p><b>On the job training:</b><br /> {{job.Job.training}}</p>
+			</div>
+			<p>{{job.Description.description}}</p>
+			<a ui-sref="menu.tabs.explore_results" class="button button-block button-dark">Return to Results</a>
+		</div>
+	</ion-content>
+</ion-view>

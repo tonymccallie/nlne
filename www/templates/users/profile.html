@@ -5,80 +5,196 @@
 	<ion-content>
 		<div class="subheader">Profile</div>
 		<div class="padding">
-			<form id="profile_form">
+			<p>Please update your profile information below.</p>
+			<i>(* denotes required fields)</i>
+			<form name="profileForm" novalidate="" ng-submit="profile(profileForm)">
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text" placeholder="John">
-					</label>
-					<span class="input-label">First Name</span>
+					<span class="input-label">First Name*</span>
+					<div class="item item-input" ng-class="{ 'has-errors' : user.first_name.$invalid && profileForm.$submitted, 'no-errors' : profileForm.first_name.$valid  && profileForm.$submitted}">
+						<input name="first_name" ng-model="user.first_name" type="text" placeholder="John" required />
+					</div>
+					<div class="form-errors" ng-show="profileForm.first_name.$error && profileForm.$submitted" ng-messages="profileForm.first_name.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text" placeholder="Smith">
-					</label>
-					<span class="input-label">Last Name</span>
+					<span class="input-label">Last Name*</span>
+					<div class="item item-input" ng-class="{ 'has-errors' : user.last_name.$invalid && profileForm.$submitted, 'no-errors' : profileForm.last_name.$valid  && profileForm.$submitted}">
+						<input name="last_name" ng-model="user.last_name" type="text" placeholder="Smith" required />
+					</div>
+					<div class="form-errors" ng-show="profileForm.last_name.$error && profileForm.$submitted" ng-messages="profileForm.last_name.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
-					<span class="input-label">Cell Phone Number</span>
+					<span class="input-label">Email Address</span>
+					<div class="item item-input" ng-class="{ 'has-errors' : user.email.$invalid && profileForm.$submitted, 'no-errors' : profileForm.email.$valid  && profileForm.$submitted}">
+						{{user.email}}
+					</div>
+					<div class="form-errors" ng-show="profileForm.email.$error && profileForm.$submitted" ng-messages="profileForm.email.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
 				</div>
+
+				<h3>Education</h3>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
-					<span class="input-label">Home Phone Number</span>
+					<span class="input-label">Are you in the AISD School District?*</span>
+					<div class="item item-input item-toggle" ng-class="{ 'has-errors' : user.aisd.$invalid && profileForm.$submitted, 'no-errors' : profileForm.aisd.$valid  && profileForm.$submitted}">
+						<span class="input-label">&nbsp;</span>
+						<label class="toggle">
+							<input name="aisd" ng-model="user.aisd" type="checkbox" placeholder="name@email.com" required />
+							<div class="track">
+								<div class="handle"></div>
+							</div>
+						</label>
+					</div>
+					<div class="form-errors" ng-show="profileForm.aisd.$error && profileForm.$submitted" ng-messages="profileForm.aisd.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
-					<span class="input-label">Current Grade</span>
+					<div class="input-label">
+						What school do you currently attend?*
+					</div>
+					<div class="item item-input item-select" ng-class="{ 'has-errors' : user.school.$invalid && profileForm.$submitted, 'no-errors' : profileForm.school.$valid  && profileForm.$submitted}">
+						<div class="input-label">&nbsp;</div>
+						<select name="school" ng-model="user.school" required>
+							<option value="">Please Choose</option>
+							<option value="Amarillo High">Amarillo High</option>
+							<option value="Caprock High">Caprock High</option>
+							<option value="Palo Duro High">Palo Duro High</option>
+							<option value="Tascosa High">Tascosa High</option>
+							<option value="North Heigths Alternative">North Heigths Alternative</option>
+							<option value="AACAL">AACAL</option>
+							<option value="Amarillo College">Amarillo College</option>
+							<option value="WTAMU">West Texas A&amp;M University</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+					<div class="form-errors" ng-show="profileForm.school.$error && profileForm.$submitted" ng-messages="profileForm.school.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
-					<span class="input-label">Current School</span>
+					<span class="input-label">What year did/will you graduate High School?*</span>
+					<div class="item item-input item-select" ng-class="{ 'has-errors' : user.grad_year.$invalid && profileForm.$submitted, 'no-errors' : profileForm.grad_year.$valid  && profileForm.$submitted}">
+						<div class="input-label">&nbsp;</div>
+						<select name="grad_year" ng-model="user.grad_year" required>
+							<option ng-repeat="i in gradYears">{{i}}</option>
+						</select>
+					</div>
+					<div class="form-errors" ng-show="profileForm.grad_year.$error && profileForm.$submitted" ng-messages="profileForm.grad_year.$error">
+						<div ng-messages-include="templates/system/error.html"></div>
+					</div>
 				</div>
+
+				<h3>Family</h3>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
+					<span class="input-label">Parent/Guardian 1</span>
+					<div class="item item-input">
+						<input name="guardian_1" ng-model="user.guardian_1" type="text" />
+					</div>
+				</div>
+
+				<div class="list list-inset">
+					<span class="input-label">Parent/Guardian 2</span>
+					<div class="item item-input">
+						<input name="guardian_2" ng-model="user.guardian_2" type="text" />
+					</div>
+				</div>
+
+				<h3>Contact Information</h3>
+
+				<div class="list list-inset">
 					<span class="input-label">Student ID</span>
+					<div class="item item-input">
+						<input name="student_id" ng-model="user.student_id" type="text" />
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
-					<span class="input-label">Birthday</span>
+					<span class="input-label">Birth Date</span>
+					<div class="item item-input">
+						<input name="birthday" ng-model="user.birthday" type="text" />
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
-					<span class="input-label">Address</span>
+					<span class="input-label">Address 1</span>
+					<div class="item item-input">
+						<input name="address_1" ng-model="user.address_1" type="text" />
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
+					<span class="input-label">Address 2</span>
+					<div class="item item-input">
+						<input name="address_2" ng-model="user.address_2" type="text" />
+					</div>
+				</div>
+
+				<div class="list list-inset">
 					<span class="input-label">City</span>
+					<div class="item item-input">
+						<input name="city" ng-model="user.city" type="text" />
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
 					<span class="input-label">State</span>
+					<div class="item item-input">
+						<input name="state" ng-model="user.state" type="text" />
+					</div>
 				</div>
+
 				<div class="list list-inset">
-					<label class="item item-input">
-						<input type="text">
-					</label>
-					<span class="input-label">Zip</span>
+					<span class="input-label">ZIP</span>
+					<div class="item item-input">
+						<input name="zip" ng-model="user.zip" type="text" />
+					</div>
 				</div>
-				
+
+				<div class="list list-inset">
+					<span class="input-label">Alternate Email</span>
+					<div class="item item-input">
+						<input name="email_alt" ng-model="user.email_alt" type="email" />
+					</div>
+				</div>
+
+				<div class="list list-inset">
+					<span class="input-label">Twitter</span>
+					<div class="item item-input">
+						<input name="twitter" ng-model="user.twitter" type="text" />
+					</div>
+				</div>
+
+				<div class="list list-inset">
+					<span class="input-label">Facebook</span>
+					<div class="item item-input">
+						<input name="facebook" ng-model="user.facebook" type="text" />
+					</div>
+				</div>
+
+				<div class="list list-inset">
+					<span class="input-label">Instagram</span>
+					<div class="item item-input">
+						<input name="instagram" ng-model="user.instagram" type="text" />
+					</div>
+				</div>
+
+				<div class="list list-inset">
+					<span class="input-label">Snapchat</span>
+					<div class="item item-input">
+						<input name="snapchat" ng-model="user.snapchat" type="text" />
+					</div>
+				</div>
+				<input type="submit" value="Save My Profile" class="button button-block button-positive" />
 			</form>
 		</div>
 	</ion-content>

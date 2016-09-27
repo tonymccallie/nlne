@@ -5,7 +5,16 @@
 	<ion-content>
 		<div class="subheader"><span class="goplan-dates"></span>Dates</div>
 		<div class="padding">
-			This page under construction
+			<div class="list list-inset">
+				<div ng-repeat="(key,month) in events">
+					<div class="item item-divider">
+						{{month.title}}
+					</div>
+					<div class="item" ng-repeat="event in month.events" ng-click="details(key,$index)">
+						<b>{{event.Event.event_date | date: 'dd'}}</b> {{event.Event.title}}
+					</div>
+				</div>
+			</div>
 		</div>
 	</ion-content>
 </ion-view>

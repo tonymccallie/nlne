@@ -1,0 +1,54 @@
+<ion-view title="Search">
+	<ion-nav-title>
+		<img src="img/logo.png" class="title-image" />
+	</ion-nav-title>
+	<ion-content>
+		<div class="subheader"><span class="goplan-explore"></span>Search Jobs</div>
+		<div class="padding">
+			<p>Paragraph about how to search/filter... Foul healthily then and more yikes a beheld orca ouch through more pinched thankfully pill crud save boa hello yet and grasshopper away far hatchet flashy instead forward resold alongside trite guarded a rigorously informal enthusiastic.</p>
+			<form name="jobSearch" novalidate="" ng-submit="search(jobSearch)">
+				<ion-list>
+					<div class="item item-divider">
+						Personality Type
+					</div>
+					<ion-checkbox ng-model="filter.extrovert">Extrovert</ion-checkbox>
+					<ion-checkbox ng-model="filter.planner">Planner</ion-checkbox>
+					<ion-checkbox ng-model="filter.technology">Technology</ion-checkbox>
+					<ion-checkbox ng-model="filter.creativity">Creativity</ion-checkbox>
+					<ion-checkbox ng-model="filter.risk_taker">Risk Taker</ion-checkbox>
+					<div class="item item-divider">
+						Job Type
+					</div>
+					<ion-checkbox ng-model="filter.outdoor">Outdoor</ion-checkbox>
+					<ion-checkbox ng-model="filter.variety">Variety</ion-checkbox>
+					<ion-checkbox ng-model="filter.manager">Manager</ion-checkbox>
+					<ion-checkbox ng-model="filter.cause_driven">Cause Driven</ion-checkbox>
+					<ion-checkbox ng-model="filter.problem_solving">Problem Solving</ion-checkbox>
+					<div class="item item-divider">
+						Skill Sets
+					</div>
+					<ion-checkbox ng-model="filter.math">Math</ion-checkbox>
+					<ion-checkbox ng-model="filter.science">Science</ion-checkbox>
+					<ion-checkbox ng-model="filter.teaching">Teaching</ion-checkbox>
+					<ion-checkbox ng-model="filter.public_speaking">Public Speaking</ion-checkbox>
+					<div class="item item-divider">
+						Salary Range
+					</div>
+					<div class="item item-input item-select">
+						<span class="input-label">Annual Salary</span>
+						<select ng-model="filter.salary" required>
+							<option value="">Please Choose</option>
+							<option value="A">Less than $40k</option>
+							<option value="B">Between $40k and $60k</option>
+							<option value="C">Between $60k and $80k</option>
+							<option value="D">Between $80k and $100k</option>
+							<option value="E">More than $100k</option>
+						</select>
+					</div>
+					<p><br /></p>
+					<input type="submit" value="Search" class="button button-block button-positive" />
+				</ion-list>
+			</form>
+		</div>
+	</ion-content>
+</ion-view>

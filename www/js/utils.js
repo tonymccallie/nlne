@@ -13,8 +13,8 @@ angular.module('greyback.utils', [])
 			okType: 'button-positive'
 		});
 	}
-	
-	self.confirm = function(msg, btns) {
+
+	self.confirm = function (msg, btns) {
 		console.log('$util.confirm');
 		return $ionicPopup.confirm({
 			title: null,
@@ -24,6 +24,15 @@ angular.module('greyback.utils', [])
 			cancelText: 'Cancel'
 		});
 	}
+
+	self.range = function (min, max, step) {
+		step = step || 1;
+		var input = [];
+		for (var i = min; i <= max; i += step) {
+			input.push(i);
+		}
+		return input;
+	};
 })
 
 .service('$data', function ($q, $http, $location, $ionicSlideBoxDelegate, $localStorage, $ionicLoading, $state, $util) {
@@ -39,15 +48,15 @@ angular.module('greyback.utils', [])
 		console.log(['$data.populate:' + $config.name, $config]);
 
 		var deferred = $q.defer();
-		
+
 		//initialize array value if non-existent
 		if (typeof self.values[$config.name] == 'undefined') {
 			self.values[$config.name] = [];
 		}
-		
+
 		if (self.values[$config.name].length === 0) {
 			console.log($config.name + ': no records');
-			
+
 			//check for a local version
 			self.local($config.name).then(function (localRecords) {
 				if (localRecords.length > 0) {
@@ -71,7 +80,7 @@ angular.module('greyback.utils', [])
 
 		return deferred.promise;
 	}
-	
+
 	// $http.get wrapper
 	self.get = function ($config, obj) {
 		console.log(['$data.get:' + $config.name, $config]);
@@ -130,7 +139,7 @@ angular.module('greyback.utils', [])
 			.success(function (result) {
 				console.log('$data.remote(' + $name + ').success');
 				$ionicLoading.hide();
-				
+
 				switch (result.status) {
 					case "SUCCESS":
 						//store local copy for populate
