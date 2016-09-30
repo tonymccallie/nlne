@@ -53,7 +53,6 @@ angular.module('greyback.controllers', [])
 
 .controller('UserController', function ($scope, $state, $q, $ionicLoading, $ionicPopup, $util, UserService, FacebookService) {
 	console.log('UserController');
-
 	$scope.signupUser = {};
 	$scope.loginUser = {};
 	$scope.recoverUser = {};
@@ -76,7 +75,6 @@ angular.module('greyback.controllers', [])
 		console.log('UserController.login');
 		if (form.$valid) {
 			UserService.login($scope.loginUser).then(function (data) {
-				console.log(['step2', data]);
 				$scope.loginUser = {};
 				$state.go('menu.tabs.home');
 			});
@@ -107,26 +105,60 @@ angular.module('greyback.controllers', [])
 		console.log('UserController.fblogin');
 		FacebookService.login();
 	}
+	
+	$scope.birthdayDatePicker = {		
+//		titleLabel: 'Title', //Optional
+//		todayLabel: 'Today', //Optional
+//		closeLabel: 'Close', //Optional
+//		setLabel: 'Set', //Optional
+//		setButtonType: 'button-assertive', //Optional
+//		todayButtonType: 'button-assertive', //Optional
+//		closeButtonType: 'button-assertive', //Optional
+//		inputDate: new Date(), //Optional
+//		mondayFirst: true, //Optional
+//		disabledDates: disabledDates, //Optional
+//		weekDaysList: weekDaysList, //Optional
+//		monthList: monthList, //Optional
+//		templateType: 'popup', //Optional
+//		modalHeaderColor: 'bar-positive', //Optional
+//		modalFooterColor: 'bar-positive', //Optional
+//		from: new Date(2012, 8, 2), //Optional
+//		to: new Date(2018, 8, 25), //Optional
+		callback: function (val) { //Mandatory
+			if (typeof $scope.user.User == 'undefined') {
+				$scope.user.User = {};
+			}
+			$scope.user.User.birthday = val;
+		}
+	};
 })
 
-.controller('HomeController', function ($scope, $q, $ionicSlideBoxDelegate, ImgCache) {
+.controller('HomeController', function ($scope, $q, $state, $ionicSlideBoxDelegate, ImgCache, ArticleService, user, articles) {
 	console.log('HomeController');
 
+	$scope.articles = articles;
+	
 	$scope.refresh = function () {
 		console.log('HomeController.refresh');
 		ImgCache.clearCache(function () {
 			console.log('clearCache');
 		});
-		//		$q.all([NewsService.latest(), CommunityService.latest()]).then(function (data) {
-		//			console.log('HomeController.refresh.all');
-		//			$scope.banners = data[0];
-		//			$scope.posts = data[1];
-		//			$ionicSlideBoxDelegate.update();
-		//			$scope.$broadcast('scroll.refreshComplete');
-		//		});;
+		
+		ArticleService.refresh().then(function (results) {
+			$scope.articles = results;
+			$ionicSlideBoxDelegate.update();
+			$scope.$broadcast('scroll.refreshComplete');
+		});
 
 	}
 
+	$scope.$on('$ionicView.enter', function (e) {
+		console.log('State: ' + $state.current.name);
+		if(!user.User.profile) {
+			$state.go('menu.tabs.profile');
+		}
+	});
+	
 	$scope.$on("$ionicView.loaded", function () {
 		//		console.error('view loaded');
 		//		$scope.refresh();

@@ -127,6 +127,14 @@
 				</div>
 
 				<div class="list list-inset">
+					<ionic-datepicker input-obj="birthdayDatePicker" class="item item-input item-icon-right datepicker">
+						<div ng-if="user.User.anniversary">{{user.birthday | date:'MMMM dd, yyyy'}}</div>
+						<div ng-if="!user.User.anniversary">Birthday</div>
+						<i class="icon ion-calendar icon-calm"></i>
+					</ionic-datepicker>
+				</div>
+
+				<div class="list list-inset">
 					<span class="input-label">Address 1</span>
 					<div class="item item-input">
 						<input name="address_1" ng-model="user.address_1" type="text" />

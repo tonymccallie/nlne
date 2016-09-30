@@ -281,15 +281,39 @@ angular.module('greyback.services', [])
 .service('PlanService', function ($q) {
 	console.warn('PlanService');
 	var self = this;
-	
+
 	self.plan = {};
-	
+
 	self.set = function (plan) {
 		console.log('EventService.set');
 		var deferred = $q.defer();
 		self.plan = plan;
 		deferred.resolve(self.plan);
 		return deferred.promise;
+	}
+})
+
+.service('ArticleService', function ($data) {
+	console.warn('ArticleService');
+	var self = this;
+	var config = {
+		latest: {
+			name: 'ArticleService.latest',
+			url: '/ajax/articles/latest',
+			variable: 'articles'
+		}
+	};
+	
+	self.articles = [];
+	
+	self.latest = function() {
+		console.log('ArticleService.latest');
+		return $data.populate(config.latest, self);
+	}
+	
+	self.refresh = function() {
+		console.log('ArticleService.refresh');
+		return $data.get(config.latest, self);
 	}
 })
 

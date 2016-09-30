@@ -6,23 +6,11 @@
 		<ion-refresher pulling-text="Pull to refresh..." on-refresh="refresh()"></ion-refresher>
 		<div class="subheader"><span class="goplan-home"></span> Home</div>
 		<div class="padding">
-			<div id="home_text">
-				<img src="img/xcel.png">
-				<p>Join us tomorrow as we go #live with @xcelenergy! We will be chatting with @wesreeves about the future need of the company. Join us at 3pm Friday, September 23!</p>
-				<p><br /><br /></p>
-				<img src="img/stats.png">
-				<p>What does it look like for to be a line working foreman with @xcelenergy? It looks pretty good. All you need is a high school diploma and to go through a 4 year journeyman program. #FindYourFuture</p>
-				<img src="img/poverty.png">
-				<p><br /><br /></p>
-				<p>Recently, we got hear from the great and wonderful @slpeeple. She shared this slide during her presentation, and we thought it spoke volumes.</p>
-				<img src="img/quote.png">
-				<p>Happy #LaborDay!</p>
-				<p><br /><br /></p>
-				<img src="img/teachers.png">
-				<p>We are glad to see you. #aisdtogether #iamaisd #aisdinnov8 #whatsyourplan</p>
-				<p><br /><br /></p>
-				<button class="button button-light">Load More</button>
-				
+			<div class="article" ng-repeat="article in articles">
+				<img ng-if="article.Article.image !== null" img-cache ic-src="{{imageDir+article.Article.image }}/width:400/height:400/crop:true/zoom:auto" style="width: 100%;" />
+				<h4>{{article.Article.title}}</h4>
+				<p>{{article.Article.body}}</p>
+				<p><br /></p>
 			</div>
 		</div>
 	</ion-content>

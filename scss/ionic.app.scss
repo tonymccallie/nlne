@@ -113,6 +113,16 @@ i, em {
 		text-transform: uppercase;
 	}
 }
+.dottedlist {
+	list-style: disc;
+	padding-left: 20px;
+}
+
+.article {
+	h4 {
+		text-transform: uppercase;
+	}
+}
 
 #login, #forgot_page {
 	background-image: url(../img/login_bg.jpg);

@@ -1,17 +1,17 @@
-var DOMAIN = 'http://goamaapp.server1.greyback.net/'
+var DOMAIN = 'http://goamaapp.server1.greyback.net'
 	//DEVELOPMENT
 var devtest = /localhost/.test(window.location.hostname);
 if (devtest) {
-	DOMAIN = 'http://localhost/nlne_server/';
+	DOMAIN = 'http://localhost/nlne_server';
 	isMobile = false;
 }
 devtest = /threeleaf/.test(window.location.hostname);
 if (devtest) {
-	DOMAIN = 'http://office.threeleaf.net:8080/nlne_server/';
+	DOMAIN = 'http://office.threeleaf.net:8080/nlne_server';
 	isMobile = false;
 }
 
-angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages'])
+angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages', 'ionic-datepicker'])
 
 .run(function ($ionicPlatform, ImgCache, ngFB) {
 	console.warn('.run');
@@ -82,6 +82,12 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			'tab-home': {
 				templateUrl: "templates/home.html",
 				controller: 'HomeController'
+			}
+		},
+		resolve: {
+			articles: function(ArticleService) {
+				console.log('menu.tabs.home.resolve.articles');
+				return ArticleService.latest();
 			}
 		}
 	})
@@ -294,6 +300,60 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		views: {
 			'tab-static': {
 				templateUrl: "templates/users/profile.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.about_nlne', {
+		url: '/about_nlne',
+		views: {
+			'tab-static': {
+				templateUrl: "templates/pages/about_nlne.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.ace', {
+		url: '/ace',
+		views: {
+			'tab-static': {
+				templateUrl: "templates/pages/ace.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.counselors', {
+		url: '/counselors',
+		views: {
+			'tab-static': {
+				templateUrl: "templates/pages/counselors.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.partners', {
+		url: '/partners',
+		views: {
+			'tab-static': {
+				templateUrl: "templates/pages/partners.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.ac', {
+		url: '/ac',
+		views: {
+			'tab-static': {
+				templateUrl: "templates/pages/ac.html"
+			}
+		}
+	})
+	
+	.state('menu.tabs.wtamu', {
+		url: '/wtamu',
+		views: {
+			'tab-static': {
+				templateUrl: "templates/pages/wtamu.html"
 			}
 		}
 	})
