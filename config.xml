@@ -21,6 +21,7 @@
 		<plugin name="cordova-plugin-media-capture" />
 		<plugin name="cordova-plugin-device" />
 		<plugin name="cordova-plugin-file" />
+		<plugin name="cordova-plugin-file-transfer" />
 		<plugin name="cordova-plugin-console" />
 		<plugin name="cordova-plugin-whitelist" />
 		<plugin name="cordova-plugin-splashscreen" />

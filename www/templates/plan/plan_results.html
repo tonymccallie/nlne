@@ -11,9 +11,8 @@
 			<br />
 			<b>MY PATH:</b> {{plan_user.path}}<br />
 			<b>SCHOOL:</b> {{plan_user.school}}<br />
-			<b>PROGRAM/DEGREE:</b> {{plan_user.program}}<br />
-			<b>START DATE:</b> September 1st, 2018<br />
-			<br />
+			<span ng-if="plan_user.program"><b>PROGRAM/DEGREE:</b> {{plan_user.program}}<br />
+			<br /></span>
 			<b>CHECK LIST:</b><br />
 			<ion-checkbox ng-model="plan_user.checklist.step1">Meet with your school advisor</ion-checkbox>
 			<ion-checkbox ng-model="plan_user.checklist.step2">Setup a campus visit</ion-checkbox>

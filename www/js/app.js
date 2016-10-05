@@ -181,6 +181,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 	
 	.state('menu.tabs.plan_results', {
 		url: '/plan_results',
+		cache: false,
 		views: {
 			'tab-plan': {
 				templateUrl: "templates/plan/plan_results.html",
@@ -214,6 +215,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 
 	.state('menu.tabs.explore_search', {
 		url: '/explore_search',
+		cache: false,
 		views: {
 			'tab-explore': {
 				templateUrl: "templates/explore/search.html",

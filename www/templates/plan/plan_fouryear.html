@@ -3,21 +3,17 @@
 		<img src="img/logo.png" class="title-image" />
 	</ion-nav-title>
 	<ion-content>
-		<div class="subheader"><span class="goplan-plan"></span>Step 2: Career School</div>
+		<div class="subheader"><span class="goplan-plan"></span>Step 2: Four Year College</div>
 		<img src="img/my_plan.png" />
 		<div class="padding">
 			<i>* denotes required field</i>
 			<form name="careerForm" novalidate="" ng-submit="store(careerForm)">
 				<div class="list list-inset">
-					<span class="input-label">Which Career School Are you Going to Attend? *</span>
+					<span class="input-label">What school will you be attending? *</span>
 					<div class="item item-input item-select" ng-class="{ 'has-errors' : plan_user.school.$invalid && careerForm.$submitted, 'no-errors' : careerForm.school.$valid  && careerForm.$submitted}">
 						<div class="input-label">&nbsp;</div>
 						<select name="school" ng-model="plan_user.school" required>
-							<option value="Amarillo College">Amarillo College</option>
-							<option value="Vista College">Vista College</option>
-							<option value="Milan Institute">Milan Institute</option>
-							<option value="Wade Gordon">Wade Gordon</option>
-							<option value="Exsposito School">Exsposito School</option>
+							<option value="West Texas A&amp;M University">West Texas A&amp;M University</option>
 							<option value="Other">Other (Fill In)</option>
 						</select>
 					</div>
@@ -31,32 +27,121 @@
 					<div class="item item-input item-select" ng-class="{ 'has-errors' : plan_user.program.$invalid && careerForm.$submitted, 'no-errors' : careerForm.program.$valid  && careerForm.$submitted}">
 						<div class="input-label">&nbsp;</div>
 						<select name="program" ng-model="plan_user.program" required>
-							<option value="Automotive Technology">Automotive Technology</option>
-							<option value="Automotive Collision">College</option>
-							<option value="Aviation Maintenance">Automotive Collision</option>
-							<option value="Course Rotations">Course Rotations</option>
-							<option value="Fire">Fire</option>
-							<option value="HVACR">HVACR</option>
-							<option value="Diesel Mechanics Technology">Diesel Mechanics Technology</option>
-							<option value="Instrumentation & Electronics">Instrumentation &amp; Electronics</option>
-							<option value="Machining">Machining</option>
-							<option value="Solar">Solar</option>
-							<option value="Truck Driving and Logistics">Truck Driving and Logistics</option>
-							<option value="Welding">Welding</option>
-							<option value="Wind">Wind</option>
-							<option value="Industrial Maintenance">Industrial Maintenance</option>
-							<option value="Heavy Equip. Contract Training">Heavy Equip. Contract Training</option>
-							<option value="Administrative Medical Assistant">Administrative Medical Assistant</option>
-							<option value="Dental Assistant">Dental Assistant</option>
-							<option value="Medical Assisting">Medical Assisting</option>
-							<option value="Pharmacy Technician">Pharmacy Technician</option>
-							<option value="Cosmetology">Cosmetology</option>
-							<option value="Business Administration">Business Administration</option>
-							<option value="Business Management">Business Management</option>
-							<option value="HVAC">HVAC</option>
-							<option value="Medical Assistant">Medical Assistant</option>
-							<option value="Vocational Nursing">Vocational Nursing</option>
-							<option value="Other">Other (Fill In)</option>
+							<option value="Accounting B.B.A.">Accounting B.B.A.</option>
+							<option value="Agribusiness B.S.">Agribusiness B.S.</option>
+							<option value="Agricultural Business and Economics B.S.">Agricultural Business and Economics B.S.</option>
+							<option value="Agricultural Media and Communication B.S.">Agricultural Media and Communication B.S.</option>
+							<option value="Agriculture Science and Technology (Grades 6-12) Teaching Certification (Agriculture B.S.)">Agriculture Science and Technology (Grades 6-12) Teaching Certification (Agriculture B.S.)</option>
+							<option value="Agriculture—Non-Certification Option (Agriculture B.S.)">Agriculture—Non-Certification Option (Agriculture B.S.)</option>
+							<option value="Animal Science B.S.">Animal Science B.S.</option>
+							<option value="Applied Arts and Sciences B.A.A.S.">Applied Arts and Sciences B.A.A.S.</option>
+							<option value="Applied Sport Emphasis (Sports and Exercise Sciences B.A./B.S.)">Applied Sport Emphasis (Sports and Exercise Sciences B.A./B.S.)</option>
+							<option value="Art (Grades EC-12) Teaching Certification (Art B.A./B.S.)">Art (Grades EC-12) Teaching Certification (Art B.A./B.S.)</option>
+							<option value="Art B.A./B.S.">Art B.A./B.S.</option>
+							<option value="Art History Emphasis (Art B.A./B.S.)">Art History Emphasis (Art B.A./B.S.)</option>
+							<option value="Athletic Training B.S.">Athletic Training B.S.</option>
+							<option value="Biology B.A./B.S.">Biology B.A./B.S.</option>
+							<option value="Biotechnology B.S.">Biotechnology B.S.</option>
+							<option value="Business Education (Grades 6-12) Teaching Certification (General Business B.B.A.)">Business Education (Grades 6-12) Teaching Certification (General Business B.B.A.)</option>
+							<option value="Chemistry Option I - Professional Chemistry B.A./B.S.">Chemistry Option I - Professional Chemistry B.A./B.S.</option>
+							<option value="Chemistry Option II - General Chemistry B.A./B.S.">Chemistry Option II - General Chemistry B.A./B.S.</option>
+							<option value="Chemistry Option III - Biochemistry B.A./B.S.">Chemistry Option III - Biochemistry B.A./B.S.</option>
+							<option value="Civil Engineering B.S.">Civil Engineering B.S.</option>
+							<option value="Communication Disorders B.S.">Communication Disorders B.S.</option>
+							<option value="Communication Studies B.A./B.S">Communication Studies B.A./B.S</option>
+							<option value="Composition Emphasis (Music B.M.)">Composition Emphasis (Music B.M.)</option>
+							<option value="Computer Information Systems - Decision Management Specialization B.B.A.">Computer Information Systems - Decision Management Specialization B.B.A.</option>
+							<option value="Computer Information Systems B.B.A.">Computer Information Systems B.B.A.</option>
+							<option value="Computer Science (Grades 8-12) Teaching Certification (Computer Science B.S.)">Computer Science (Grades 8-12) Teaching Certification (Computer Science B.S.)</option>
+							<option value="Computer Science (Grades 8-12) Teaching Certification (Computer Science B.S.)">Computer Science (Grades 8-12) Teaching Certification (Computer Science B.S.)</option>
+							<option value="Computer Science B.S">Computer Science B.S</option>
+							<option value="Criminal Justice B.A./B.S.">Criminal Justice B.A./B.S.</option>
+							<option value="Dance B.F.A.">Dance B.F.A.</option>
+							<option value="Economics B.B.A.">Economics B.B.A.</option>
+							<option value="Emergency Management Administration B.A.A.S.">Emergency Management Administration B.A.A.S.</option>
+							<option value="Engineering Technology B.S.">Engineering Technology B.S.</option>
+							<option value="English B.A.">English B.A.</option>
+							<option value="English Language Arts and Reading (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)">English Language Arts and Reading (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="English Language Arts and Reading (Grades 7-12) Teaching Certification (English B.A.)">English Language Arts and Reading (Grades 7-12) Teaching Certification (English B.A.)</option>
+							<option value="English Language Arts and Reading/Social Studies (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)">English Language Arts and Reading/Social Studies (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Environmental Engineering B.S.">Environmental Engineering B.S.</option>
+							<option value="Environmental Science B.S.">Environmental Science B.S.</option>
+							<option value="Equine Industry and Business B.S">Equine Industry and Business B.S</option>
+							<option value="Exercise Science Emphasis (Sports and Exercise Sciences B.A./B.S.)">Exercise Science Emphasis (Sports and Exercise Sciences B.A./B.S.)</option>
+							<option value="Finance B.B.A.">Finance B.B.A.</option>
+							<option value="General Business B.B.A.">General Business B.B.A.</option>
+							<option value="General Business with a Specialization in Entrepreneurship/Small Business B.B.A.">General Business with a Specialization in Entrepreneurship/Small Business B.B.A.</option>
+							<option value="General Business with a Specialization in Health Care Management B.B.A.">General Business with a Specialization in Health Care Management B.B.A.</option>
+							<option value="General Business with a Specialization in International Business B.B.A.">General Business with a Specialization in International Business B.B.A.</option>
+							<option value="General Studies B.G.S.">General Studies B.G.S.</option>
+							<option value="Generalist (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)">Generalist (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Generalist (Grades EC-6) Teaching Certification (Interdisciplinary Studies B.S.)">Generalist (Grades EC-6) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Geology B.A./B.S.">Geology B.A./B.S.</option>
+							<option value="Graphic Design B.F.A.">Graphic Design B.F.A.</option>
+							<option value="Health Sciences Degree">Health Sciences Degree</option>
+							<option value="Hispanic Cultural Studies Certificate (Spanish B.A.)">Hispanic Cultural Studies Certificate (Spanish B.A.)</option>
+							<option value="History (Grades 7-12) Teaching Certification (History B.A./B.S.)">History (Grades 7-12) Teaching Certification (History B.A./B.S.)</option>
+							<option value="History B.A./B.S.">History B.A./B.S.</option>
+							<option value="Journalism (Grades 7-12) Teaching Certification (Broadcast Journalism B.A./B.S.)">Journalism (Grades 7-12) Teaching Certification (Broadcast Journalism B.A./B.S.)</option>
+							<option value="Life Science (Grades 7–12) Teaching Certification (Biology B.S.)">Life Science (Grades 7–12) Teaching Certification (Biology B.S.)</option>
+							<option value="LOTE-Spanish (Grades EC-12) Teaching Certification (Spanish B.A.)">LOTE-Spanish (Grades EC-12) Teaching Certification (Spanish B.A.)</option>
+							<option value="Management B.B.A.">Management B.B.A.</option>
+							<option value="Management with a Specialization in Human Resource Management B.B.A.">Management with a Specialization in Human Resource Management B.B.A.</option>
+							<option value="Marketing B.B.A.">Marketing B.B.A.</option>
+							<option value="Mass Communication - Broadcast Journalism B.A./B.S.">Mass Communication - Broadcast Journalism B.A./B.S.</option>
+							<option value="Mass Communication - Broadcasting, Electronic Media B.A./B.S.">Mass Communication - Broadcasting, Electronic Media B.A./B.S.</option>
+							<option value="Mass Communication - Public Relations, Advertising, and Applied Communication B.A./B.S.">Mass Communication - Public Relations, Advertising, and Applied Communication B.A./B.S.</option>
+							<option value="Mathematics (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)">Mathematics (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Mathematics (Grades 7-12) Teaching Certification (Mathematics B.A./B.S.)">Mathematics (Grades 7-12) Teaching Certification (Mathematics B.A./B.S.)</option>
+							<option value="Mathematics B.A./B.S">Mathematics B.A./B.S</option>
+							<option value="Mathematics/Science (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)">Mathematics/Science (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Mechanical Engineering B.S.">Mechanical Engineering B.S.</option>
+							<option value="Music (Grades EC-12) Teaching Certification - Instrumental Emphasis, Keyboard Emphasis or Voice Emphasis (Music B.M.)">Music (Grades EC-12) Teaching Certification - Instrumental Emphasis, Keyboard Emphasis or Voice Emphasis (Music B.M.)</option>
+							<option value="Music B.M.">Music B.M.</option>
+							<option value="Music Industry Emphasis - Option I - Arts Management and Administration (Music B.M.) Option II - Music Technology (Music B.M.)">Music Industry Emphasis - Option I - Arts Management and Administration (Music B.M.) Option II - Music Technology (Music B.M.)</option>
+							<option value="Music Therapy: Instrumental, Keyboard, or Vocal Emphasis (Music B.M.)">Music Therapy: Instrumental, Keyboard, or Vocal Emphasis (Music B.M.)</option>
+							<option value="Musical Theatre B.A.">Musical Theatre B.A.</option>
+							<option value="Neuroscience Certification Program (Biology B.S., Communication Disorders B.S. or Psychology B.S.)">Neuroscience Certification Program (Biology B.S., Communication Disorders B.S. or Psychology B.S.)</option>
+							<option value="Nursing B.S.N.">Nursing B.S.N.</option>
+							<option value="Nursing for LVNs (Nursing B.S.N.)">Nursing for LVNs (Nursing B.S.N.)</option>
+							<option value="Nursing RN to BSN (Nursing B.S.N.)">Nursing RN to BSN (Nursing B.S.N.)</option>
+							<option value="Performance: Instrumental, Keyboard, Piano Pedagogy or Vocal Emphasis (Music B.M.)">Performance: Instrumental, Keyboard, Piano Pedagogy or Vocal Emphasis (Music B.M.)</option>
+							<option value="Physical Education (Grades EC-12) Teaching Certification (Sports and Exercise Sciences B.S.)">Physical Education (Grades EC-12) Teaching Certification (Sports and Exercise Sciences B.S.)</option>
+							<option value="Physical Science (Grades 6-12) Teaching Certification (Chemistry B.S.)">Physical Science (Grades 6-12) Teaching Certification (Chemistry B.S.)</option>
+							<option value="Physics B.A./B.S.">Physics B.A./B.S.</option>
+							<option value="Plant, Soil and Environmental Science B.S.">Plant, Soil and Environmental Science B.S.</option>
+							<option value="Political Science B.A./B.S.">Political Science B.A./B.S.</option>
+							<option value="Pre-Dental (Biology B.S.)">Pre-Dental (Biology B.S.)</option>
+							<option value="Pre-Engineering Program">Pre-Engineering Program</option>
+							<option value="Pre-Law Studies B.A./B.S.">Pre-Law Studies B.A./B.S.</option>
+							<option value="Pre-Medical (Biology B.S.)">Pre-Medical (Biology B.S.)</option>
+							<option value="Pre-Occupational Therapy (Biology B.S.)">Pre-Occupational Therapy (Biology B.S.)</option>
+							<option value="Pre-Pharmacy (Biology B.S.)">Pre-Pharmacy (Biology B.S.)</option>
+							<option value="Pre-Physical Therapy (Biology B.S.)">Pre-Physical Therapy (Biology B.S.)</option>
+							<option value="Pre-Veterinary Medicine (Agriculture/Animal Science B.S.)">Pre-Veterinary Medicine (Agriculture/Animal Science B.S.)</option>
+							<option value="Psychology B.A./B.S.">Psychology B.A./B.S.</option>
+							<option value="Public Service Administration B.A./B.S.">Public Service Administration B.A./B.S.</option>
+							<option value="Science (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)">Science (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Science (Grades 7-12) Teaching Certification (Biology B.S.)">Science (Grades 7-12) Teaching Certification (Biology B.S.)</option>
+							<option value="Social Sciences B.A./B.S.">Social Sciences B.A./B.S.</option>
+							<option value="Social Studies (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)">Social Studies (Grades 4-8) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Social Studies (Grades 7-12) Teaching Certification (Social Sciences B.A./B.S.)">Social Studies (Grades 7-12) Teaching Certification (Social Sciences B.A./B.S.)</option>
+							<option value="Social Work B.A./B.S.">Social Work B.A./B.S.</option>
+							<option value="Sociology B.A./B.S.">Sociology B.A./B.S.</option>
+							<option value="Spanish B.A.">Spanish B.A.</option>
+							<option value="Spanish Language Certificate">Spanish Language Certificate</option>
+							<option value="Special Education (Grades EC-12) Teaching Certification (Interdisciplinary Studies B.S.)">Special Education (Grades EC-12) Teaching Certification (Interdisciplinary Studies B.S.)</option>
+							<option value="Speech (Grades 7-12) Teaching Certification (Communication Studies B.A./B.S)">Speech (Grades 7-12) Teaching Certification (Communication Studies B.A./B.S)</option>
+							<option value="Sports and Exercise Sciences B.A./B.S.">Sports and Exercise Sciences B.A./B.S.</option>
+							<option value="Studio Art and Management Emphasis (Art B.A./B.S.)">Studio Art and Management Emphasis (Art B.A./B.S.)</option>
+							<option value="Studio Art B.F.A.">Studio Art B.F.A.</option>
+							<option value="Technical Communication Certificate">Technical Communication Certificate</option>
+							<option value="Theatre - Design and Technology Emphasis (Theatre B.A./B.S.)">Theatre - Design and Technology Emphasis (Theatre B.A./B.S.)</option>
+							<option value="Theatre - Performance Emphasis (Theatre B.A./B.S.)">Theatre - Performance Emphasis (Theatre B.A./B.S.)</option>
+							<option value="Theatre (Grades EC-12) Teaching Certification (Theatre B.A.)">Theatre (Grades EC-12) Teaching Certification (Theatre B.A.)</option>
+							<option value="Theatre B.A./B.S.">Theatre B.A./B.S.</option>
+							<option value="Wildlife Biology B.A./B.S.">Wildlife Biology B.A./B.S.</option>
+							<option value="Other (Fill in)">Other (Fill in)</option>
 						</select>
 					</div>
 					<div class="form-errors" ng-show="careerForm.program.$error && careerForm.$submitted" ng-messages="careerForm.program.$error">
@@ -74,7 +159,7 @@
 					<ion-checkbox ng-model="plan_user.checklist.step6">Take Entrance Exam SAT/ACT</ion-checkbox>
 					<ion-checkbox ng-model="plan_user.checklist.step7">Sign up for Classes</ion-checkbox>
 				</div>
-				
+
 				<input type="submit" value="Continue" class="button button-block button-positive" />
 			</form>
 		</div>
