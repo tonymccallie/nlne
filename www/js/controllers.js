@@ -161,7 +161,7 @@ angular.module('greyback.controllers', [])
 	
 	$scope.$on("$ionicView.loaded", function () {
 		//		console.error('view loaded');
-		//		$scope.refresh();
+		$scope.refresh();
 	});
 })
 
