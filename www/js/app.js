@@ -43,7 +43,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		debug: true,
 		usePersistentCache: true
 	});
-
+	
 	ImgCacheProvider.manualInit = true;
 
 	// ImgCache library is initialized automatically,
