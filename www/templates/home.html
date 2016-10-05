@@ -7,7 +7,7 @@
 		<div class="subheader"><span class="goplan-home"></span> Home</div>
 		<div class="padding">
 			<div class="article" ng-repeat="article in articles">
-				<img ng-if="article.Article.image !== null" img-cache ic-src="{{imageDir+article.Article.image }}/width:400/height:400/crop:true/zoom:auto" style="width: 100%;" />
+				<img ng-if="article.Article.image !== null" img-cache ic-src="{{imageDir+article.Article.image }}/width:400/height:400/crop:true/zoom:auto/{{article.Article.image}}" style="width: 100%;" />
 				<h4>{{article.Article.title}}</h4>
 				<p>{{article.Article.body}}</p>
 				<p><br /></p>
