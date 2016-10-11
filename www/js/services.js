@@ -139,6 +139,7 @@ angular.module('greyback.services', [])
 
 	self.user = {};
 
+	//DUMMY CODE FOR DESKTOP DEV
 	if (typeof facebookConnectPlugin == 'undefined') {
 		facebookConnectPlugin = {
 			login: function (options, success, error) {
@@ -161,6 +162,7 @@ angular.module('greyback.services', [])
 			}
 		}
 	}
+	//END DUMMY
 
 	self.logout = function () {
 		facebookConnectPlugin.logout(function (success) {
@@ -278,17 +280,56 @@ angular.module('greyback.services', [])
 	}
 })
 
-.service('PlanService', function ($q) {
+.service('CounselorService', function ($q, $data) {
+	console.warn('CounselorService');
+	var self = this;
+	var config = {
+		listing: {
+			name: 'CounselorService.listing',
+			url: '/ajax/schools/listing',
+			variable: 'counselors'
+		}
+	};
+
+	self.counselors = [];
+
+	self.listing = function () {
+		console.log('CounselorService.listing');
+		return $data.populate(config.listing, self);
+	}
+	
+	self.refresh = function () {
+		console.log('CounselorService.refresh');
+		return $data.get(config.listing, self);
+	}
+})
+
+.service('PlanService', function ($q, $data) {
 	console.warn('PlanService');
 	var self = this;
 
 	self.plan = {};
 
 	self.set = function (plan) {
-		console.log('EventService.set');
+		console.log('PlanService.set');
 		var deferred = $q.defer();
 		self.plan = plan;
 		deferred.resolve(self.plan);
+		return deferred.promise;
+	}
+})
+
+.service('QuizService', function ($q, $data) {
+	console.warn('QuizService');
+	var self = this;
+
+	self.results = [];
+
+	self.set = function (results) {
+		console.log('QuizService.set');
+		var deferred = $q.defer();
+		self.results = results;
+		deferred.resolve(self.results);
 		return deferred.promise;
 	}
 })

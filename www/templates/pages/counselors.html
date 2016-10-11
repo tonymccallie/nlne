@@ -3,9 +3,15 @@
 		<img src="img/logo.png" class="title-image" />
 	</ion-nav-title>
 	<ion-content>
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh="refresh()"></ion-refresher>
 		<div class="subheader">Counselors</div>
 		<div class="padding">
-			<p>Counselors</p>
+			<div class="list">
+				<div ng-repeat="school in listing">
+					<div class="item item-divider">{{school.School.title}}</div>
+					<a class="item item-icon-right" ng-repeat="counselor in school.Counselor" ng-href="tel:{{counselor.phone}}">{{counselor.first_name}} {{counselor.last_name}}<i class="icon ion-ios-telephone-outline"></i></a>
+				</div>
+			</div>
 		</div>
 	</ion-content>
 </ion-view>

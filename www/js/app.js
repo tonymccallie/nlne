@@ -282,7 +282,8 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/quizzes',
 		views: {
 			'tab-quizzes': {
-				templateUrl: "templates/quizzes/quizzes_home.html"
+				templateUrl: "templates/quizzes/quizzes_home.html",
+				controller: "QuizController"
 			}
 		}
 	})
@@ -291,7 +292,8 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/quiz_results',
 		views: {
 			'tab-quizzes': {
-				templateUrl: "templates/quizzes/quiz_results.html"
+				templateUrl: "templates/quizzes/quiz_results.html",
+				controller: "QuizController"
 			}
 		}
 	})
@@ -328,7 +330,13 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/counselors',
 		views: {
 			'tab-static': {
-				templateUrl: "templates/pages/counselors.html"
+				templateUrl: "templates/pages/counselors.html",
+				controller: "CounselorController"
+			}
+		},
+		resolve: {
+			listing: function (CounselorService) {
+				return CounselorService.listing();
 			}
 		}
 	})

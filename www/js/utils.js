@@ -94,6 +94,10 @@ angular.module('greyback.utils', [])
 
 		return deferred.promise;
 	}
+	
+	self.sync = function($config, obj, data) {
+		
+	}
 
 	// $http.post wrapper
 	self.post = function ($config, obj, data) {

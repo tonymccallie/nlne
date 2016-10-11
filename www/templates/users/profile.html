@@ -42,18 +42,15 @@
 				<h3>Education</h3>
 
 				<div class="list list-inset">
-					<span class="input-label">Are you in the AISD School District?*</span>
-					<div class="item item-input item-toggle" ng-class="{ 'has-errors' : user.aisd.$invalid && profileForm.$submitted, 'no-errors' : profileForm.aisd.$valid  && profileForm.$submitted}">
+					<span class="input-label">Are you in the AISD School District?</span>
+					<div class="item item-input item-toggle">
 						<span class="input-label">&nbsp;</span>
 						<label class="toggle">
-							<input name="aisd" ng-model="user.aisd" type="checkbox" placeholder="name@email.com" required />
+							<input name="aisd" ng-model="user.aisd" type="checkbox" placeholder="name@email.com" />
 							<div class="track">
 								<div class="handle"></div>
 							</div>
 						</label>
-					</div>
-					<div class="form-errors" ng-show="profileForm.aisd.$error && profileForm.$submitted" ng-messages="profileForm.aisd.$error">
-						<div ng-messages-include="templates/system/error.html"></div>
 					</div>
 				</div>
 

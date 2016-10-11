@@ -10058,3 +10058,6 @@ i, em {
 .input-label {
   width: auto;
   max-width: none; }
+
+#quiz .radio-content .item-content {
+  white-space: normal; }

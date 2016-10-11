@@ -105,25 +105,25 @@ angular.module('greyback.controllers', [])
 		console.log('UserController.fblogin');
 		FacebookService.login();
 	}
-	
-	$scope.birthdayDatePicker = {		
-//		titleLabel: 'Title', //Optional
-//		todayLabel: 'Today', //Optional
-//		closeLabel: 'Close', //Optional
-//		setLabel: 'Set', //Optional
-//		setButtonType: 'button-assertive', //Optional
-//		todayButtonType: 'button-assertive', //Optional
-//		closeButtonType: 'button-assertive', //Optional
-//		inputDate: new Date(), //Optional
-//		mondayFirst: true, //Optional
-//		disabledDates: disabledDates, //Optional
-//		weekDaysList: weekDaysList, //Optional
-//		monthList: monthList, //Optional
-//		templateType: 'popup', //Optional
-//		modalHeaderColor: 'bar-positive', //Optional
-//		modalFooterColor: 'bar-positive', //Optional
-//		from: new Date(2012, 8, 2), //Optional
-//		to: new Date(2018, 8, 25), //Optional
+
+	$scope.birthdayDatePicker = {
+		//		titleLabel: 'Title', //Optional
+		//		todayLabel: 'Today', //Optional
+		//		closeLabel: 'Close', //Optional
+		//		setLabel: 'Set', //Optional
+		//		setButtonType: 'button-assertive', //Optional
+		//		todayButtonType: 'button-assertive', //Optional
+		//		closeButtonType: 'button-assertive', //Optional
+		//		inputDate: new Date(), //Optional
+		//		mondayFirst: true, //Optional
+		//		disabledDates: disabledDates, //Optional
+		//		weekDaysList: weekDaysList, //Optional
+		//		monthList: monthList, //Optional
+		//		templateType: 'popup', //Optional
+		//		modalHeaderColor: 'bar-positive', //Optional
+		//		modalFooterColor: 'bar-positive', //Optional
+		//		from: new Date(2012, 8, 2), //Optional
+		//		to: new Date(2018, 8, 25), //Optional
 		callback: function (val) { //Mandatory
 			if (typeof $scope.user.User == 'undefined') {
 				$scope.user.User = {};
@@ -137,13 +137,13 @@ angular.module('greyback.controllers', [])
 	console.log('HomeController');
 
 	$scope.articles = articles;
-	
+
 	$scope.refresh = function () {
 		console.log('HomeController.refresh');
 		ImgCache.clearCache(function () {
 			console.log('clearCache');
 		});
-		
+
 		ArticleService.refresh().then(function (results) {
 			$scope.articles = results;
 			$ionicSlideBoxDelegate.update();
@@ -154,11 +154,11 @@ angular.module('greyback.controllers', [])
 
 	$scope.$on('$ionicView.enter', function (e) {
 		console.log('State: ' + $state.current.name);
-		if(!user.User.profile) {
+		if (!user.User.profile) {
 			$state.go('menu.tabs.profile');
 		}
 	});
-	
+
 	$scope.$on("$ionicView.loaded", function () {
 		//		console.error('view loaded');
 		$scope.refresh();
@@ -210,15 +210,34 @@ angular.module('greyback.controllers', [])
 	}
 })
 
-.controller('PlanController', function ($scope, $state, $util, PlanService, path) {
+.controller('CounselorController', function ($scope, $state, listing, CounselorService) {
+	console.log('CounselorController');
+	$scope.listing = listing;
+	
+	$scope.refresh = function () {
+		console.log('CounselorController.refresh');
+
+		CounselorService.refresh().then(function (results) {
+			$scope.listing = results;
+			$scope.$broadcast('scroll.refreshComplete');
+		});
+
+	}
+
+	$scope.$on("$ionicView.loaded", function () {
+		//		console.error('view loaded');
+		$scope.refresh();
+	});
+})
+
+.controller('PlanController', function ($scope, $state, $util, PlanService, UserService, path) {
 	console.log('PlanController');
 
 	$scope.plan_user = PlanService.plan;
 
 	$scope.store = function (form) {
 		console.log('PlanController.store');
-		console.log([$scope.plan_user, form]);
-		
+		console.log($scope.user);
 		if (form.$valid) {
 			$scope.plan_user.path = path;
 			PlanService.set($scope.plan_user).then(function (result) {
@@ -226,6 +245,49 @@ angular.module('greyback.controllers', [])
 			});
 		} else {
 			$util.alert('There was a problem with the information you entered. Please verify that you have all the needed information and try again.');
+		}
+	}
+})
+
+.controller('QuizController', function ($scope, $util, $state, QuizService) {
+	console.log('QuizController');
+	var current;
+
+	$scope.quiz = {};
+
+	$scope.results = QuizService.results;
+
+
+	$scope.calculate = function (form) {
+		if (form.$valid) {
+			console.log($scope.quiz);
+			var results = {};
+			angular.forEach($scope.quiz, function (value, key) {
+				if (value !== 'NULL') {
+					if (results[value]) {
+						results[value]++;
+					} else {
+						results[value] = 1;
+					}
+				} else {
+					console.log('WHAT?');
+				}
+			});
+			angular.forEach(results, function (value, key) {
+				if (value > 1) {
+					$scope.results.push(key);
+				}
+			});
+			
+			if($scope.results) {
+				QuizService.set($scope.results).then(function() {
+					$state.go('menu.tabs.quiz_results');
+				})
+			}
+
+			console.log($scope.results);
+		} else {
+			$util.alert('Please answer all the questions.');
 		}
 	}
 });
