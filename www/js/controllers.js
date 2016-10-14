@@ -174,7 +174,7 @@ angular.module('greyback.controllers', [])
 	$scope.listings = listings;
 })
 
-.controller('JobController', function ($scope, $q, $util, $state, JobService, listing) {
+.controller('JobController', function ($scope, $q, $util, $state, JobService) {
 	console.log('JobController');
 	
 	$scope.filter = {};
