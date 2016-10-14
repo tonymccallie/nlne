@@ -7,139 +7,14 @@
 		<div class="padding">
 			<div>
 	<ul class="list">
-    	<li class="item">
-			<h3>Patrol Officer</h3>
-			<p>Patrol assigned area to enforce laws and ordinances, regulate traffic, control crowds, prevent crime, and arrest violators.</p>
+   		<li class="item" ng-repeat="spotlight in listings">
+   			<h3>{{spotlight.Spotlight.title}}</h3>
+			<p>{{spotlight.Spotlight.descr}}</p>
+			{{spotlight.Spotlight.youtube}}
 			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/4d7aSEGMC7Q" frameborder="0" allowfullscreen></iframe>
+				<iframe width="560" height="315" src="{{spotlight.Spotlight.youtube}}" frameborder="0" allowfullscreen></iframe>
 			</div>
-    	</li>
-    	<li class="item">
-			<h3>Welder</h3>
-			<p>Use hand-welding, flame-cutting, hand soldering, or brazing equipment to weld or join metal components.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/xYYMbIevmMg" frameborder="0" allowfullscreen></iframe>
-			</div>
-    	</li>
-    	<li class="item">
-			<h3>Network Administrator</h3>
-			<p>Install, configure, and support an organization`s local area network, wide area network, and Internet systems.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/wJNS-bYp4LY" frameborder="0" allowfullscreen></iframe>
-			</div>
-    	</li>
-		<li class="item">
-			<h3>Executive Assistant</h3>
-			<p>Provide high-level administrative support by conducting research, preparing statistical reports, and performing clerical functions.</p>
-			<div class="videoWrapper">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/hCMmKSwUDC0" frameborder="0" allowfullscreen></iframe>
-				</div>
-		</li>
-		<li class="item">
-			<h3>Computer Support Specialist</h3>
-			<p>Provide technical assistance to computer users.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/m8oHCLYOiME" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Lineman</h3>
-			<p>Install or repair cables or wires used in electrical power or distribution systems.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/8oDWcfddZ4I" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Line Foreman</h3>
-			<p>Install or repair cables or wires used in electrical power or distribution systems.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/CWkBM-Z6aDk" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Machinist</h3>
-			<p>Set up and operate a variety of machine tools to produce precision parts and instruments.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/LAlDZBTmvMs" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Automation Technician</h3>
-			<p>Operate, test, maintain, or calibrate unmanned, automated, servo-mechanical, or electromechanical equipment.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/oo2P1dLBJ7k" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Diesel Engine Specialist</h3>
-			<p>Diagnose, adjust, repair, or overhaul buses and trucks, or maintain and repair any type of diesel engines.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/VYdi4XWENHA" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Pharmacy Technician</h3>
-			<p>Prepare medications under the direction of a pharmacist.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/BKZq3VLxScI" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Registered Nurse</h3>
-			<p>Assess patient health problems and needs, develop and implement nursing care plans, and maintain medical records.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/Z3oDPORGP1U" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Carpenter</h3>
-			<p>Construct, erect, install, or repair structures and fixtures made of wood.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/MeKh67S2sw8" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Construction Equipment Operators</h3>
-			<p>Operate one or several types of power construction equipment.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/8y8eFnSrW9s" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Field Supervisor</h3>
-			<p>Directly supervise and coordinate the activities of mechanics, installers, and repairers.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/uWo0Ry_mbY8" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Control Room Operator</h3>
-			<p>Control, operate, or maintain machinery to generate electric power. Includes auxiliary equipment operators.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/tfSmcXCUac4" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Radiologic Technologist</h3>
-			<p>Take x rays and CAT scans or administer nonradioactive materials into patient`s blood stream for diagnostic purposes.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/4Fa_mkLXMjU" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Surgical Technologist</h3>
-			<p>Assist in operations, under the supervision of surgeons, registered nurses, or other surgical personnel.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/Pu6lkyAnWmM" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
-		<li class="item">
-			<h3>Auto Body Technician</h3>
-			<p>Repair and refinish automotive vehicle bodies and straighten vehicle frames.</p>
-			<div class="videoWrapper">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/Y-gcwcun73o" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</li>
+   		</li>
 	</ul>
 </div>
 			<a ui-sref="menu.tabs.explore" class="button button-block button-dark">Exlpore Careers</a>

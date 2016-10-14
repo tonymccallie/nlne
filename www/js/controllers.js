@@ -169,14 +169,20 @@ angular.module('greyback.controllers', [])
 	});
 })
 
-.controller('JobController', function ($scope, $q, $util, $state, JobService) {
-	console.log('JobController');
+.controller('SpotlightController', function($scope, $state, $q, listings) {
+	console.log('SpotlightController');
+	$scope.listings = listings;
+})
 
+.controller('JobController', function ($scope, $q, $util, $state, JobService, listing) {
+	console.log('JobController');
+	
 	$scope.filter = {};
 
 	$scope.jobs = JobService.results;
 
 	$scope.job = JobService.details;
+	
 
 	if (!$scope.jobs.length) {
 		$state.go('menu.tabs.explore_search');

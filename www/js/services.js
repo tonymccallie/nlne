@@ -250,12 +250,19 @@ angular.module('greyback.services', [])
 			name: 'JobService.search',
 			url: '/ajax/jobs/search',
 			variable: 'results'
+		},
+		listing: {
+			name: 'JobService.listing',
+			url: '/ajax/spotlights/listing',
+			variable: 'spotlights'
 		}
 	};
 
 	self.results = [];
 
 	self.details = {};
+	
+	self.spotlights = [];
 
 	self.search = function (filter) {
 		console.log('JobService.search');
@@ -268,6 +275,11 @@ angular.module('greyback.services', [])
 		self.details = job;
 		deferred.resolve(self.details);
 		return deferred.promise;
+	}
+	
+	self.listing = function() {
+		console.log('JobService.listing');
+		return $data.get(config.listing, self);
 	}
 })
 

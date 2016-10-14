@@ -60,6 +60,7 @@ em {
 	/* 16:9 */
 	padding-top: 25px;
 	height: 0;
+	overflow: hidden;
 }
 .videoWrapper iframe {
 	position: absolute;

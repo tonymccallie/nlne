@@ -242,7 +242,14 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/local',
 		views: {
 			'tab-explore': {
-				templateUrl: "templates/explore/local.html"
+				templateUrl: "templates/explore/local.html",
+				controller: "SpotlightController"
+			}
+		},
+		resolve: {
+			listings: function(JobService) {
+				console.log('menu.tabs.explore_local.resolve.listing')
+				return JobService.listing();
 			}
 		}
 	})
