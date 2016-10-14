@@ -37,7 +37,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 	});
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ImgCacheProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $sceDelegateProvider, ImgCacheProvider) {
 	console.warn('.config')
 	ImgCacheProvider.setOptions({
 		debug: true,
@@ -51,6 +51,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 	// in this case we need init imgcache.js manually after device is ready
 
 	$ionicConfigProvider.backButton.previousTitleText(false).text('');
+	$sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?youtube\.com/.+$')]);
 
 	$stateProvider
 		.state('menu', {
