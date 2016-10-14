@@ -247,7 +247,7 @@ angular.module('greyback.controllers', [])
 
 	if (!path) {
 		if (!$scope.plan_user.path) {
-			$state.go('menu.tabs.plan_start');
+			
 		} else {
 			switch ($scope.plan_user.path) {
 				case 'Career School':
@@ -272,8 +272,9 @@ angular.module('greyback.controllers', [])
 
 	$scope.$on('$ionicView.enter', function (e) {
 		console.log('State: ' + $state.current.name);
-		if (Object.keys($scope.plan_user).length && !path) {
-			$state.go('menu.tabs.plan_results');
+		if (Object.keys($scope.plan_user).length && $state.current.name == 'menu.tabs.plan') {
+			console.log('go to results');
+			//$state.go('menu.tabs.plan_results');
 		}
 	});
 
