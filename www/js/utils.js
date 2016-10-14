@@ -24,6 +24,15 @@ angular.module('greyback.utils', [])
 			cancelText: 'Cancel'
 		});
 	}
+	
+	self.prompt = function(msg) {
+		return $ionicPopup.prompt({
+			title: null,
+			template: msg,
+			okType: 'button-positive',
+			cancelText: 'Cancel'
+		});
+	}
 
 	self.range = function (min, max, step) {
 		step = step || 1;

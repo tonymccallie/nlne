@@ -49,6 +49,10 @@ angular.module('greyback.controllers', [])
 			}
 		});
 	}
+
+	$scope.debug = function () {
+		console.log($scope.user);
+	}
 })
 
 .controller('UserController', function ($scope, $state, $q, $ionicLoading, $ionicPopup, $util, UserService, FacebookService) {
@@ -213,7 +217,7 @@ angular.module('greyback.controllers', [])
 .controller('CounselorController', function ($scope, $state, listing, CounselorService) {
 	console.log('CounselorController');
 	$scope.listing = listing;
-	
+
 	$scope.refresh = function () {
 		console.log('CounselorController.refresh');
 
@@ -230,14 +234,51 @@ angular.module('greyback.controllers', [])
 	});
 })
 
-.controller('PlanController', function ($scope, $state, $util, PlanService, UserService, path) {
+.controller('PlanController', function ($scope, $state, $util, PlanService, UserService, ListService, path, plan) {
 	console.log('PlanController');
 
-	$scope.plan_user = PlanService.plan;
+	$scope.plan_user = plan;
+	$scope.steps = {};
+
+	$scope.collegesteps = ListService.collegesteps;
+	$scope.militarysteps = ListService.militarysteps;
+	$scope.careersteps = ListService.careersteps;
+	$scope.link = '';
+
+	if (!path) {
+		if (!$scope.plan_user.path) {
+			$state.go('menu.tabs.plan_start');
+		} else {
+			switch ($scope.plan_user.path) {
+				case 'Career School':
+					$scope.steps = ListService.careersteps;
+					$scope.link = 'career';
+					break;
+				case 'Military':
+					$scope.steps = ListService.militarysteps;
+					$scope.link = 'military';
+					break;
+				case 'Two Year College':
+					$scope.steps = ListService.collegesteps;
+					$scope.link = 'twoyear';
+					break;
+				default:
+					$scope.steps = ListService.collegesteps;
+					$scope.link = 'fouryear';
+					break;
+			}
+		}
+	}
+
+	$scope.$on('$ionicView.enter', function (e) {
+		console.log('State: ' + $state.current.name);
+		if (Object.keys($scope.plan_user).length && !path) {
+			$state.go('menu.tabs.plan_results');
+		}
+	});
 
 	$scope.store = function (form) {
 		console.log('PlanController.store');
-		console.log($scope.user);
 		if (form.$valid) {
 			$scope.plan_user.path = path;
 			PlanService.set($scope.plan_user).then(function (result) {
@@ -246,6 +287,32 @@ angular.module('greyback.controllers', [])
 		} else {
 			$util.alert('There was a problem with the information you entered. Please verify that you have all the needed information and try again.');
 		}
+	}
+
+	$scope.reset = function () {
+		$scope.plan_user = {};
+		PlanService.set($scope.plan_user).then(function (result) {
+			$state.go('menu.tabs.plan_start');
+		});
+	}
+
+	$scope.counselor = function () {
+		UserService.counselor().then(function (data) {
+			$util.alert('Your Plan has been sent to the counselors at your high school if you are in AISD.');
+		});
+	}
+
+	$scope.share = function () {
+		$util.prompt('What email would you like to share your plan with?').then(function (email) {
+			if (email) {
+				UserService.share(email).then(function (data) {
+					$util.alert('Your Plan has been shared with the email address you provided.');
+				});
+			} else {
+				$util.alert('Please enter an email address');
+			}
+		})
+
 	}
 })
 
@@ -278,9 +345,9 @@ angular.module('greyback.controllers', [])
 					$scope.results.push(key);
 				}
 			});
-			
-			if($scope.results) {
-				QuizService.set($scope.results).then(function() {
+
+			if ($scope.results) {
+				QuizService.set($scope.results).then(function () {
 					$state.go('menu.tabs.quiz_results');
 				})
 			}

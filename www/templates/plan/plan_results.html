@@ -10,19 +10,15 @@
 			<b>SCHOOL:</b> {{user.school}}<br />
 			<br />
 			<b>MY PATH:</b> {{plan_user.path}}<br />
-			<b>SCHOOL:</b> {{plan_user.school}}<br />
-			<span ng-if="plan_user.program"><b>PROGRAM/DEGREE:</b> {{plan_user.program}}<br />
+			<b>SCHOOL:</b> {{plan_user.school!='OTHER'?plan_user.school:plan_user.school_other}}<br />
+			<span ng-if="plan_user.program"><b>PROGRAM/DEGREE:</b> {{plan_user.program!='OTHER'?plan_user.program:plan_user.program_other}}<br />
 			<br /></span>
 			<b>CHECK LIST:</b><br />
-			<ion-checkbox ng-model="plan_user.checklist.step1">Meet with your school advisor</ion-checkbox>
-			<ion-checkbox ng-model="plan_user.checklist.step2">Setup a campus visit</ion-checkbox>
-			<ion-checkbox ng-model="plan_user.checklist.step3">Apply</ion-checkbox>
-			<ion-checkbox ng-model="plan_user.checklist.step4">Apply for Scholarship/financial Aid</ion-checkbox>
-			<ion-checkbox ng-model="plan_user.checklist.step5">Take Pre-Requisite Classes</ion-checkbox>
-			<ion-checkbox ng-model="plan_user.checklist.step6">Take Entrance Exam SAT/ACT</ion-checkbox>
-			<ion-checkbox ng-model="plan_user.checklist.step7">Sign up for Classes</ion-checkbox>
-			<a class="button button-block button-dark">Share my plan</a>
-			<a ui-sref="menu.tabs.plan_start" class="button button-block button-positive">Modify your plan</a>
+			<ion-checkbox ng-repeat="(step,text) in steps" ng-model="plan_user.checklist[step]">{{text}}</ion-checkbox>
+			<a class="button button-block button-positive" ng-click="share()">Share</a>
+			<a class="button button-block button-positive" ng-click="counselor()">Send to counselor</a>
+			<a href="{{'#/menu/tabs/plan_' + link}}" class="button button-block button-dark">Modify your plan</a>
+			<a ng-click="reset()" class="button button-block button-dark">Start Over</a>
 		</div>
 	</ion-content>
 </ion-view>

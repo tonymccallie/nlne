@@ -29,12 +29,9 @@
 
 				<div class="list list-inset">
 					<span class="input-label">What steps have you taken?</span>
-					<ion-checkbox ng-model="plan_user.checklist.step1">Meet with your school advisor</ion-checkbox>
-					<ion-checkbox ng-model="plan_user.checklist.step2">Meet with a recruitment officer</ion-checkbox>
-					<ion-checkbox ng-model="plan_user.checklist.step3">Prepared for Physical Fitness Exam</ion-checkbox>
-					<ion-checkbox ng-model="plan_user.checklist.step4">Filled out All necessary Paperwork</ion-checkbox>
+					<ion-checkbox ng-repeat="(step,text) in militarysteps" ng-model="plan_user.checklist[step]">{{text}}</ion-checkbox>
 				</div>
-				
+
 				<input type="submit" value="Continue" class="button button-block button-positive" />
 			</form>
 		</div>

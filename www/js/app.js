@@ -43,7 +43,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		debug: true,
 		usePersistentCache: true
 	});
-	
+
 	ImgCacheProvider.manualInit = true;
 
 	// ImgCache library is initialized automatically,
@@ -85,7 +85,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		},
 		resolve: {
-			articles: function(ArticleService) {
+			articles: function (ArticleService) {
 				console.log('menu.tabs.home.resolve.articles');
 				return ArticleService.latest();
 			}
@@ -96,11 +96,21 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 		url: '/plan',
 		views: {
 			'tab-plan': {
-				templateUrl: "templates/plan/plan_home.html"
+				templateUrl: "templates/plan/plan_home.html",
+				controller: "PlanController"
+			}
+		},
+		resolve: {
+			plan: function (PlanService) {
+				console.log('menu.tabs.plan.resolve.plan');
+				return PlanService.get();
+			},
+			path: function() {
+				return null;
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.plan_college', {
 		url: '/plan_college',
 		views: {
@@ -109,7 +119,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.plan_start', {
 		url: '/plan_start',
 		views: {
@@ -118,7 +128,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.plan_career', {
 		url: '/plan_career',
 		views: {
@@ -128,12 +138,20 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		},
 		resolve: {
-			path: function() {
+			plan: function (PlanService) {
+				console.log('menu.tabs.plan.resolve.plan');
+				return PlanService.get();
+			},
+			plan: function (PlanService) {
+				console.log('menu.tabs.plan.resolve.plan');
+				return PlanService.get();
+			},
+			path: function () {
 				return 'Career School';
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.plan_military', {
 		url: '/plan_military',
 		views: {
@@ -143,12 +161,16 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		},
 		resolve: {
-			path: function() {
+			plan: function (PlanService) {
+				console.log('menu.tabs.plan.resolve.plan');
+				return PlanService.get();
+			},
+			path: function () {
 				return 'Military';
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.plan_twoyear', {
 		url: '/plan_twoyear',
 		views: {
@@ -158,12 +180,16 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		},
 		resolve: {
-			path: function() {
+			plan: function (PlanService) {
+				console.log('menu.tabs.plan.resolve.plan');
+				return PlanService.get();
+			},
+			path: function () {
 				return 'Two Year College';
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.plan_fouryear', {
 		url: '/plan_fouryear',
 		views: {
@@ -173,12 +199,16 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		},
 		resolve: {
-			path: function() {
+			plan: function (PlanService) {
+				console.log('menu.tabs.plan.resolve.plan');
+				return PlanService.get();
+			},
+			path: function () {
 				return 'Four Year College';
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.plan_results', {
 		url: '/plan_results',
 		cache: false,
@@ -189,7 +219,11 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		},
 		resolve: {
-			path: function() {
+			plan: function (PlanService) {
+				console.log('menu.tabs.plan.resolve.plan');
+				return PlanService.get();
+			},
+			path: function () {
 				return null;
 			}
 		}
@@ -203,7 +237,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.explore_local', {
 		url: '/local',
 		views: {
@@ -287,7 +321,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.quiz_results', {
 		url: '/quiz_results',
 		views: {
@@ -307,7 +341,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.about_nlne', {
 		url: '/about_nlne',
 		views: {
@@ -316,7 +350,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.ace', {
 		url: '/ace',
 		views: {
@@ -325,7 +359,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.counselors', {
 		url: '/counselors',
 		views: {
@@ -340,7 +374,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.partners', {
 		url: '/partners',
 		views: {
@@ -349,7 +383,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.ac', {
 		url: '/ac',
 		views: {
@@ -358,7 +392,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		}
 	})
-	
+
 	.state('menu.tabs.wtamu', {
 		url: '/wtamu',
 		views: {

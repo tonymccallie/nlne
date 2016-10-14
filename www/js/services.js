@@ -24,6 +24,16 @@ angular.module('greyback.services', [])
 			name: 'UserService.profile',
 			url: '/ajax/users/update',
 			variable: 'user'
+		},
+		counselor: {
+			name: 'UserService.counselor',
+			url: '/ajax/users/counselor',
+			variable: 'user'
+		},
+		share: {
+			name: 'UserService.share',
+			url: '/ajax/users/share',
+			variable: 'user'
 		}
 	};
 
@@ -51,7 +61,7 @@ angular.module('greyback.services', [])
 		return deferred.promise;
 	}
 
-	self.local = function ($category) {
+	self.local = function () {
 		console.log('UserService.local');
 		var deferred = $q.defer();
 		var localUser = $localStorage.getObject('GoAmaUser');
@@ -77,7 +87,7 @@ angular.module('greyback.services', [])
 	self.login = function (userform) {
 		console.log('UserService.login');
 		return $data.post(config.login, self, userform).then(function (data) {
-			self.updateUser(data)
+			self.updateLocal(data)
 		});
 	}
 
@@ -102,12 +112,12 @@ angular.module('greyback.services', [])
 	self.profile = function (userform) {
 		console.log('UserService.profile');
 		return $data.post(config.profile, self, userform).then(function (data) {
-			self.updateUser(data)
-		});;
+			self.updateLocal(data)
+		});
 	}
 
-	self.updateUser = function (user) {
-		console.log('UserService.updateUser');
+	self.updateLocal = function (user) {
+		console.log('UserService.updateLocal');
 		var deferred = $q.defer();
 		self.user = user;
 		$localStorage.setObject('GoAmaUser', self.user);
@@ -123,6 +133,16 @@ angular.module('greyback.services', [])
 	self.latest = function () {
 		console.log('UserService.latest');
 		return $data.get(config.latest, self);
+	}
+	
+	self.share = function (email) {
+		console.log('UserService.share');
+		return $data.post(config.share, self, {user:self.user, email:email});
+	}
+
+	self.counselor = function () {
+		console.log('UserService.counselor');
+		return $data.post(config.counselor, self, self.user);
 	}
 })
 
@@ -189,7 +209,7 @@ angular.module('greyback.services', [])
 
 				//TODO create user here
 				$data.post(config.facebook, self, profileInfo).then(function (data) {
-					UserService.updateUser(data).then(function () {
+					UserService.updateLocal(data).then(function () {
 						$state.go('menu.tabs.home');
 					});
 				});
@@ -297,24 +317,44 @@ angular.module('greyback.services', [])
 		console.log('CounselorService.listing');
 		return $data.populate(config.listing, self);
 	}
-	
+
 	self.refresh = function () {
 		console.log('CounselorService.refresh');
 		return $data.get(config.listing, self);
 	}
 })
 
-.service('PlanService', function ($q, $data) {
+.service('PlanService', function ($q, $data, $state, $localStorage, UserService) {
 	console.warn('PlanService');
 	var self = this;
 
-	self.plan = {};
+	self.plan = null;
+
+	self.get = function () {
+		console.log('PlanService.get');
+		var deferred = $q.defer();
+		if (!self.plan) {
+			console.log('PlanService.get: pull plan from User');
+			UserService.check().then(function (data) {
+				self.plan = $localStorage.toObj(data.User.json);
+				deferred.resolve(self.plan);
+			});
+		} else {
+			console.log('PlanService.get: had plan');
+			deferred.resolve(self.plan);
+		}
+		return deferred.promise;
+	}
 
 	self.set = function (plan) {
 		console.log('PlanService.set');
 		var deferred = $q.defer();
 		self.plan = plan;
-		deferred.resolve(self.plan);
+		var user = UserService.user;
+		user.User.json = $localStorage.toJSON(self.plan);
+		UserService.profile(user.User).then(function (data) {
+			deferred.resolve(self.plan);
+		});
 		return deferred.promise;
 	}
 })
@@ -344,18 +384,85 @@ angular.module('greyback.services', [])
 			variable: 'articles'
 		}
 	};
-	
+
 	self.articles = [];
-	
-	self.latest = function() {
+
+	self.latest = function () {
 		console.log('ArticleService.latest');
 		return $data.populate(config.latest, self);
 	}
-	
-	self.refresh = function() {
+
+	self.refresh = function () {
 		console.log('ArticleService.refresh');
 		return $data.get(config.latest, self);
 	}
+})
+
+.service('ListService', function () {
+	console.warn('ListService');
+	var self = this;
+
+	self.teststeps = {
+		step1: 'Test Stuff',
+		step2: 'Test Stuff 3',
+		step3: 'Test Stuff 5'
+	}
+
+	self.careersteps = {
+		step1: "Choose Career School",
+		step2: "Tour Career School",
+		step3: "Interview Past Graduate",
+		step4: "Fill Out Application",
+		step5: "Submit Application Fee (If Required)",
+		step6: "Schedule Start Date"
+	};
+
+	self.militarysteps = {
+		step1: "Decide Enlisted or Officer",
+		step2: "Visiting a Recruiter",
+		step3: "Military Entrance Processing Station (MEPS)",
+		step4: "Pass the Armed Services Vocational Aptitude Battery (ASVAB)",
+		step5: "Pass the Physical Examination",
+		step6: "Meet With a MEPS Career Counselor and Determine a Career",
+		step7: "Take the Oath of Enlistment (swearing in)",
+		step8: "Basic Training (Boot Camp)"
+	};
+
+	self.collegesteps = {
+		step1: "Get the application",
+		step2: "Make a note of the regular application deadline",
+		step3: "Make a note of the early application deadline",
+		step4: "Request high school transcript sent",
+		step5: "Request midyear grade report sent",
+		step6: "Find out if an admission test is required",
+		step7: "Take an admission test, if required",
+		step8: "Take required or recommended tests (SAT, ACT, TSI, AP Exams)",
+		step9: "Send admission-test scores",
+		step10: "Send other test scores",
+		step11: "Request recommendation letters",
+		step12: "Send thank-you notes to recommendation writers",
+		step13: "Draft initial essay",
+		step14: "Proofread essay for spelling and grammar",
+		step15: "Revise your essay",
+		step16: "Interview at college campus",
+		step17: "Submit FAFSA",
+		step18: "Make a note of the priority financial aid deadline",
+		step19: "Make a note of the regular financial aid deadline",
+		step20: "Complete college application",
+		step21: "Make copies of all application materials",
+		step22: "Pay application fee",
+		step23: "Sign and send application",
+		step24: "Submit college aid form, if needed",
+		step25: "Submit state aid form, if needed",
+		step26: "Confirm receipt of application materials",
+		step27: "Send additional material, if needed",
+		step28: "Tell school counselor that you applied",
+		step29: "Receive letter from office of admission",
+		step30: "Receive financial aid award letter",
+		step31: "Meet deadline to accept admission and send deposit",
+		step32: "Accept financial aid offer",
+		step33: "Notify the colleges you will not attend"
+	};
 })
 
 .service('PtrService', function ($timeout, $ionicScrollDelegate) {
