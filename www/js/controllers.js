@@ -234,7 +234,7 @@ angular.module('greyback.controllers', [])
 	});
 })
 
-.controller('PlanController', function ($scope, $state, $util, PlanService, UserService, ListService, path, plan) {
+.controller('PlanController', function ($scope, $state, $util, $ionicHistory, PlanService, UserService, ListService, path, plan) {
 	console.log('PlanController');
 
 	$scope.plan_user = plan;
@@ -247,7 +247,7 @@ angular.module('greyback.controllers', [])
 
 	if (!path) {
 		if (!$scope.plan_user.path) {
-			
+
 		} else {
 			switch ($scope.plan_user.path) {
 				case 'Career School':
@@ -273,8 +273,11 @@ angular.module('greyback.controllers', [])
 	$scope.$on('$ionicView.enter', function (e) {
 		console.log('State: ' + $state.current.name);
 		if (Object.keys($scope.plan_user).length && $state.current.name == 'menu.tabs.plan') {
-			console.log('go to results');
-			//$state.go('menu.tabs.plan_results');
+			$ionicHistory.nextViewOptions({
+				disableAnimate: true,
+				disableBack: true
+			});
+			$state.go('menu.tabs.plan_results');
 		}
 	});
 
