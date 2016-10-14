@@ -11,7 +11,7 @@ if (devtest) {
 	isMobile = false;
 }
 
-angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages', 'ionic-datepicker', 'youtube-embed'])
+angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages', 'ionic-datepicker'])
 
 .run(function ($ionicPlatform, ImgCache, ngFB) {
 	console.warn('.run');

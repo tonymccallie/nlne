@@ -10,9 +10,8 @@
    		<li class="item" ng-repeat="spotlight in listings">
    			<h3>{{spotlight.Spotlight.title}}</h3>
 			<p>{{spotlight.Spotlight.descr}}</p>
-			{{spotlight.Spotlight.youtube}}
 			<div class="videoWrapper">
-				<youtube-video video-url="spotlight.Spotlight.youtube"></youtube-video>
+				<iframe width="560" height="315" ng-src="{{spotlight.Spotlight.youtube | trusted}}" frameborder="0" allowfullscreen></iframe>
 			</div>
    		</li>
 	</ul>
