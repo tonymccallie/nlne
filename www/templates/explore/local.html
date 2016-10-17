@@ -11,7 +11,15 @@
    			<h3>{{spotlight.Spotlight.title}}</h3>
 			<p>{{spotlight.Spotlight.descr}}</p>
 			<div class="videoWrapper">
-				<iframe width="560" height="315" ng-src="{{spotlight.Spotlight.youtube + '?feature=player_embedded' | trusted}}" frameborder="0" allowfullscreen></iframe>
+				<iframe width="560" height="315" ng-src="{{spotlight.Spotlight.youtube + '?feature=player_embedded&version=3' | trusted}}" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<div class="videoWrapper">
+				<object>
+					<param name="movie" value="{{spotlight.Spotlight.youtube + '?feature=player_embedded&version=3' | trusted}}"></param>
+					<param name="allowFullScreen" value="true"></param>
+					<param name="allowScriptAccess" value="always"></param>
+					<embed ng-src="{{spotlight.Spotlight.youtube + '?feature=player_embedded&version=3' | trusted }}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"></embed>
+				</object>
 			</div>
    		</li>
 	</ul>
