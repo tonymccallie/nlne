@@ -11,7 +11,7 @@
    			<h3>{{spotlight.Spotlight.title}}</h3>
 			<p>{{spotlight.Spotlight.descr}}</p>
 			<div class="videoWrapper">
-				<iframe width="560" height="315" ng-src="{{spotlight.Spotlight.youtube | trusted}}" frameborder="0" allowfullscreen></iframe>
+				<iframe width="560" height="315" ng-src="{{spotlight.Spotlight.youtube + '?feature=player_embedded' | trusted}}" frameborder="0" allowfullscreen></iframe>
 			</div>
    		</li>
 	</ul>
