@@ -5,17 +5,17 @@
 	<ion-content>
 		<div class="subheader"><span class="goplan-explore"></span>Local Careers</div>
 		<div class="padding">
-			<div>
-	<ul class="list">
-   		<li class="item" ng-repeat="spotlight in listings">
-   			<h3>{{spotlight.Spotlight.title}}</h3>
-			<p>{{spotlight.Spotlight.descr}}</p>
-			<div class="videoWrapper">
-				<iframe width="560" height="315" ng-src="{{spotlight.Spotlight.youtube + '?feature=player_embedded&version=3' | trusted}}" frameborder="0" allowfullscreen></iframe>
+			<div class="card" ng-repeat="spotlight in listings">
+				<div class="item item-text-wrap">
+					<h3>{{spotlight.Spotlight.title}}</h3>
+					<p>{{spotlight.Spotlight.descr}}</p>
+					<div class="videoWrapper">
+						<video controls="controls">
+							<source ng-src="{{spotlight.Spotlight.youtube | trusted}}">
+						</video>
+					</div>
+				</div>
 			</div>
-   		</li>
-	</ul>
-</div>
 			<a ui-sref="menu.tabs.explore" class="button button-block button-dark">Exlpore Careers</a>
 		</div>
 	</ion-content>
