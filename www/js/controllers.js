@@ -1,6 +1,6 @@
 angular.module('greyback.controllers', [])
 
-.controller('AppController', function ($scope, $sce, $ionicModal, $timeout, $util, $state, UserService, FacebookService, user) {
+.controller('AppController', function ($scope, $sce, $ionicModal, $timeout, $util, $state, $ionicPush, UserService, FacebookService, user) {
 	console.log('AppController');
 	// With the new view caching in Ionic, Controllers are only called
 	// when they are recreated or on app start, instead of every page change.
@@ -21,6 +21,12 @@ angular.module('greyback.controllers', [])
 	$scope.alert = function (msg) {
 		alert(msg);
 	}
+
+	$ionicPush.register().then(function (t) {
+		return $ionicPush.saveToken(t);
+	}).then(function (t) {
+		console.log('Token saved:', t.token);
+	});
 
 	//profile variables
 	$scope.curDateObj = new Date();
@@ -169,20 +175,20 @@ angular.module('greyback.controllers', [])
 	});
 })
 
-.controller('SpotlightController', function($scope, $state, $q, listings) {
+.controller('SpotlightController', function ($scope, $state, $q, listings) {
 	console.log('SpotlightController');
 	$scope.listings = listings;
 })
 
 .controller('JobController', function ($scope, $q, $util, $state, JobService) {
 	console.log('JobController');
-	
+
 	$scope.filter = {};
 
 	$scope.jobs = JobService.results;
 
 	$scope.job = JobService.details;
-	
+
 
 	if (!$scope.jobs.length) {
 		$state.go('menu.tabs.explore_search');

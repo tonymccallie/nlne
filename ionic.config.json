@@ -1,6 +1,6 @@
 {
   "name": "Go Amarillo",
-  "app_id": "",
+  "app_id": "96ab7c66",
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"

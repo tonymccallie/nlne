@@ -11,9 +11,9 @@ if (devtest) {
 	isMobile = false;
 }
 
-angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages', 'ionic-datepicker'])
+angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services', 'greyback.utils', 'ImgCache', 'ngOpenFB', 'ngMessages', 'ionic-datepicker', 'ionic.cloud'])
 
-.run(function ($ionicPlatform, ImgCache, ngFB) {
+.run(function ($ionicPlatform, $ionicPlatform, ImgCache, ngFB) {
 	console.warn('.run');
 	ngFB.init({
 		appId: '512626388922766',
@@ -37,8 +37,27 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 	});
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $sceDelegateProvider, ImgCacheProvider) {
-	console.warn('.config')
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider, ImgCacheProvider) {
+	console.warn('.config');
+
+	$ionicCloudProvider.init({
+		"core": {
+			"app_id": "96ab7c66"
+		},
+		"push": {
+			"sender_id": "625554547590",
+			"pluginConfig": {
+				"ios": {
+					"badge": true,
+					"sound": true
+				},
+				"android": {
+					"iconColor": "#343434"
+				}
+			}
+		}
+	});
+
 	ImgCacheProvider.setOptions({
 		debug: true,
 		usePersistentCache: true
@@ -106,7 +125,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 				console.log('menu.tabs.plan.resolve.plan');
 				return PlanService.get();
 			},
-			path: function() {
+			path: function () {
 				return null;
 			}
 		}
@@ -248,7 +267,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 			}
 		},
 		resolve: {
-			listings: function(JobService) {
+			listings: function (JobService) {
 				console.log('menu.tabs.explore_local.resolve.listing')
 				return JobService.listing();
 			}
