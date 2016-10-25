@@ -340,11 +340,19 @@ angular.module('greyback.controllers', [])
 
 	$scope.results = QuizService.results;
 
+	$scope.restart = function () {
+		console.log('QuizController.restart');
+		$scope.results = [];
+		QuizService.set($scope.results).then(function () {
+			$state.go('menu.tabs.quizzes');
+		});
+	}
 
 	$scope.calculate = function (form) {
+		console.log('QuizController.calculate');
 		if (form.$valid) {
-			console.log($scope.quiz);
 			var results = {};
+			
 			angular.forEach($scope.quiz, function (value, key) {
 				if (value !== 'NULL') {
 					if (results[value]) {
@@ -352,10 +360,9 @@ angular.module('greyback.controllers', [])
 					} else {
 						results[value] = 1;
 					}
-				} else {
-					console.log('WHAT?');
 				}
 			});
+			
 			angular.forEach(results, function (value, key) {
 				if (value > 1) {
 					$scope.results.push(key);
@@ -367,8 +374,6 @@ angular.module('greyback.controllers', [])
 					$state.go('menu.tabs.quiz_results');
 				})
 			}
-
-			console.log($scope.results);
 		} else {
 			$util.alert('Please answer all the questions.');
 		}

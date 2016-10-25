@@ -9,7 +9,7 @@
 			<h3 ng-repeat="result in results">{{result}}</h3>
 			<p>Check our our career explorers page and see what jobs fit within these results.</p>
 			<a ui_sref="menu.tabs.explore_search" class="button button-block button-dark">Career Explorer</a>
-			<a ui_sref="menu.tabs.quizzes" class="button button-block button-positive">Take Quiz Again</a>
+			<a ng-click="restart()" class="button button-block button-positive">Take Quiz Again</a>
 		</div>
 	</ion-content>
 </ion-view>
