@@ -346,13 +346,15 @@ angular.module('greyback.controllers', [])
 	$scope.restart = function () {
 		console.log('QuizController.restart');
 		$scope.results = [];
-		QuizService.set($scope.results).then(function () {
+		QuizService.set([]).then(function () {
+			console.log($scope.results);
 			$state.go('menu.tabs.quizzes');
 		});
 	}
 
 	$scope.calculate = function (form) {
 		console.log('QuizController.calculate');
+		console.log($scope.results);
 		if (form.$valid) {
 			var results = {};
 			
