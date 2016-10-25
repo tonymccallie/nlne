@@ -342,6 +342,7 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 
 	.state('menu.tabs.quizzes', {
 		url: '/quizzes',
+		cache: false,
 		views: {
 			'tab-quizzes': {
 				templateUrl: "templates/quizzes/quizzes_home.html",
