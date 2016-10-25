@@ -363,10 +363,10 @@ angular.module('greyback', ['ionic', 'greyback.controllers', 'greyback.services'
 
 	.state('menu.tabs.profile', {
 		url: '/profile',
-		controller: "UserController",
 		views: {
 			'tab-static': {
-				templateUrl: "templates/users/profile.html"
+				templateUrl: "templates/users/profile.html",
+				controller: "UserController"
 			}
 		}
 	})

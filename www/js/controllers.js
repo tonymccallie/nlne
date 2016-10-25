@@ -61,7 +61,7 @@ angular.module('greyback.controllers', [])
 	}
 })
 
-.controller('UserController', function ($scope, $state, $q, $ionicLoading, $ionicPopup, $util, UserService, FacebookService) {
+.controller('UserController', function ($scope, $state, $q, $ionicLoading, $ionicPopup, $util, ionicDatePicker, UserService, FacebookService) {
 	console.log('UserController');
 	$scope.signupUser = {};
 	$scope.loginUser = {};
@@ -116,7 +116,7 @@ angular.module('greyback.controllers', [])
 		FacebookService.login();
 	}
 
-	$scope.birthdayDatePicker = {
+	var birthdayDatePickerObj = {
 		//		titleLabel: 'Title', //Optional
 		//		todayLabel: 'Today', //Optional
 		//		closeLabel: 'Close', //Optional
@@ -135,12 +135,15 @@ angular.module('greyback.controllers', [])
 		//		from: new Date(2012, 8, 2), //Optional
 		//		to: new Date(2018, 8, 25), //Optional
 		callback: function (val) { //Mandatory
-			if (typeof $scope.user.User == 'undefined') {
-				$scope.user.User = {};
-			}
-			$scope.user.User.birthday = val;
+			console.log('HERE:'+val);
+			$scope.user.birthday = val;
 		}
 	};
+	
+	$scope.birthdayDatePicker = function() {
+		console.log('UserController.birthdayDatePicker');
+		ionicDatePicker.openDatePicker(birthdayDatePickerObj);
+	}
 })
 
 .controller('HomeController', function ($scope, $q, $state, $ionicSlideBoxDelegate, ImgCache, ArticleService, user, articles) {
