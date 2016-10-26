@@ -28,16 +28,17 @@ angular.module('greyback.services', [])
 		counselor: {
 			name: 'UserService.counselor',
 			url: '/ajax/users/counselor',
-			variable: 'user'
+			variable: 'dump'
 		},
 		share: {
 			name: 'UserService.share',
 			url: '/ajax/users/share',
-			variable: 'user'
+			variable: 'dump'
 		}
 	};
 
 	self.user = null;
+	self.dump = null;
 
 	self.init = function () {
 		console.log('UserService.init');
